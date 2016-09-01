@@ -1,0 +1,8 @@
+{
+  "API": {
+    "base": "http://api.randomuser.me/"
+  },
+  "ConnectionStrings": {
+    "Asset1ConnectionString" :  "Server=(localdb)\\MSSQLLocalDB;DataBase=Asset1;Trusted_Connection=true;MultipleActiveResultSets=true;"
+  }
+}
