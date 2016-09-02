@@ -2,26 +2,17 @@
 using Xunit;
 using Asset1.Domain.Entities;
 using Asset1.Domain.Repositories;
+using Asset1.Business.Directors.PeopleDirector;
+using Asset1.PlatformClient.PeopleClient;
 using Moq;
 using System.Collections;
 using System.Collections.Generic;
+using Asset1.Business.Builders.PeopleBuilder;
 
 namespace Tests
 {
     public class PersonTests
     {
-        [Fact]
-        public void PersonsFirstNameShouldBeWes() 
-        {
-            //arrange
-            var Person = new Person("wes", "duff");
-
-            //act
-            var result = String.Equals("wes", Person.FirstName);
-
-            //assert
-            Assert.True(result);
-        }
 
         [Fact]
         public void PersonRepositoryGetPeopleShouldReturnAnEmptyIEnumerable()
@@ -39,6 +30,37 @@ namespace Tests
 
             //assert
             Assert.Equal(result, people);
+        }
+
+        [Fact]
+        public void PeopleBuilderShouldReturnOnePerson()
+        {
+            //arrang
+            var list = new List<Person>() {
+                    new Person()
+                    {
+                        FirstName = "Fake",
+                        LastName = "Fake N",
+                        Email = "example@example.com",
+                        Gender = Gender.Male,
+                        Location = null,
+                        Phone = "434-333-3333",
+                        Picture = null,
+                        Title = SirName.Mr
+                    }
+            };
+            var mock = new Mock<IPeopleBuilder>();
+            mock.Setup(framework => framework.BuildPeople())
+                .Returns(list);
+            IPeopleBuilder builder = mock.Object;
+            IEnumerable<Person> people = builder.BuildPeople();
+
+            //act
+            Console.WriteLine($"------------------ ACTING -- Count of how many people in the list : {((List<Person>)people).Count}");
+            var result = ((List<Person>)people).Count > 0;
+
+            //assert
+            Assert.True(result);
         }
     }
 }

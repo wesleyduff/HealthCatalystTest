@@ -9,8 +9,10 @@
     "dotnet-test-xunit": "1.0.0-rc2-192208-24",
     "Moq":  "4.6.38-alpha",
     "Asset1.Domain": {
-      "target" : "project"
-    }
+      "target": "project"
+    },
+    "Asset1.Business": "1.0.0-*",
+"Asset1.PlatformClient": "1.0.0-*"
   },
   "testRunner": "xunit",
   "frameworks": {

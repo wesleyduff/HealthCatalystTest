@@ -16,16 +16,13 @@ namespace Asset1.Controllers.Web
     {
         private IPeopleComposer _composer;
         private ILogger<PeopleController> _logger;
-        private IPersonRepository _repository;
 
         public PeopleController(
-            IPersonRepository repository, 
             IPeopleComposer composer,
             ILogger<PeopleController> logger
         )
         {
             _composer = composer;
-            _repository = repository;
             _logger = logger;
         }
 

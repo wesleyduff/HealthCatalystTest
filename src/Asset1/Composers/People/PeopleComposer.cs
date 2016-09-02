@@ -8,6 +8,9 @@ using Asset1.Domain.Entities;
 using Newtonsoft.Json.Linq;
 using Asset1.Business.Directors.PeopleDirector;
 using Asset1.Domain.Repositories;
+using Asset1.ViewModels;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Asset1.Composers.People
 {
@@ -16,7 +19,9 @@ namespace Asset1.Composers.People
 
         private readonly IPeopleDirector _director;
 
-        public PeopleComposer(IPeopleDirector director)
+        public PeopleComposer(
+            IPeopleDirector director
+            )
         {
             _director = director;
         }
@@ -54,5 +59,7 @@ namespace Asset1.Composers.People
             }
            
         }
+
+        
     }
 }

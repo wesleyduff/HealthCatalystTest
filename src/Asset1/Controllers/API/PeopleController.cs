@@ -1,7 +1,11 @@
 ﻿using Asset1.Business.Directors.PeopleDirector;
+using Asset1.Composers.People;
 using Asset1.Domain.Entities;
+using Asset1.PlatformClient.PeopleClient;
 using Asset1.ViewModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -28,42 +32,62 @@ namespace Asset1.Controllers.API
         [HttpGet("")]
         public IActionResult Get()
         {
+            
             try
             {
-
                 //call context for people IEnumerable
-                return Ok(_director.BuildPeople());
+                return Ok(Mapper.Map<IEnumerable<PersonViewModel>>(_director.BuildPeople()));
             } 
             catch(Exception ex)
             {
                 return Ok(
-                            JObject.FromObject(
-                                new
-                                {
-                                    status = "Exception Thrown",
-                                    result = false,
-                                    message = ex.Message
-                                }
-                            )
-                        );
+                        JObject.FromObject(
+                            new
+                            {
+                                status = "Exception Thrown",
+                                result = false,
+                                message = ex.Message
+                            }
+                        )
+                    );
             }
         }
 
         [HttpPost("")]
-        public IActionResult Post([FromBody]PersonViewModel thePerson)
+        public async Task<IActionResult> Post([FromBody]PersonViewModel thePerson)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //Map
+                    var mappedPerson = Mapper.Map<Person>(thePerson);
 
                     //save to DB
+                    if (await _director.SavePeopleAsync(mappedPerson))
+                    {
+                        //call context for people IEnumerable
+                        return Created($"api/people/{thePerson.FirstName}", Mapper.Map<PersonViewModel>(mappedPerson));
+                    }
+                    else
+                    {
 
-                    //call context for people IEnumerable
-                    return Created($"api/people/{thePerson.FirstName}", thePerson);
+                        return Ok(
+                                    JObject.FromObject(
+                                        new
+                                        {
+                                            status = "Exception Thrown",
+                                            result = ModelState,//using this because it is for my debuging purposes only... Not for production
+                                            message ="Failed to save changes to the DataBase."
+                                        }
+                                    )
+                                );
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
+
                     return Ok(
                                 JObject.FromObject(
                                     new

@@ -2,23 +2,23 @@
 using Asset1.Domain.Entities;
 using Asset1.Domain.Repositories;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Asset1.Business.Directors.PeopleDirector
 {
     public class PeopleDirector : IPeopleDirector
     {
+        private IPeopleBuilder _builder;
         private IPersonRepository _repository;
-        private PeopleBuilder _builder;
 
-        public PeopleDirector(IPersonRepository repository)
+        public PeopleDirector(
+            IPersonRepository repository,
+            IPeopleBuilder builder
+            )
         {
             _repository = repository;
-            _builder = new PeopleBuilder(_repository);
+            _builder = builder;
         }
 
         public IEnumerable<Person> BuildPeople()
@@ -39,6 +39,17 @@ namespace Asset1.Business.Directors.PeopleDirector
 
 
 
+        }
+
+        public async Task<bool> SavePeopleAsync(Person person)
+        {
+            //check to see if the person exists...
+            //if does not exist then add
+            //if exists then return true... because the user is already in the DB
+            // TODO
+            _repository.AddPerson(person);
+
+            return await _repository.SaveChangesAsync();
         }
     }
 }

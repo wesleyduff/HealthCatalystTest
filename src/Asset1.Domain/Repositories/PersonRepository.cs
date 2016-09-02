@@ -21,11 +21,21 @@ namespace Asset1.Domain.Repositories
             _context = context;
             _logger = logger;
         }
-
+        
         public IEnumerable<Person> GetPeople()
         {
             _logger.LogInformation("Getting All People From The DataBase");
             return _context.Person.ToList();
+        }
+
+        public void AddPerson(Person person)
+        {
+            _context.Add(person);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync()) > 0;
         }
     }
 }

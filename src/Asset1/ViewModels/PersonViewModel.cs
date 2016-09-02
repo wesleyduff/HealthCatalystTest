@@ -1,10 +1,8 @@
 ﻿using Asset1.Domain.Entities;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Asset1.ViewModels
 {
@@ -19,6 +17,7 @@ namespace Asset1.ViewModels
         }
 
         public int Id { get; set; }
+        public Gender Gender { get; set; }
         public SirName Title { get; set; }
 
         [Required]

@@ -14,6 +14,11 @@ using Asset1.Composers.People;
 using Asset1.Domain.Seed;
 using Asset1.Domain.Repositories;
 using Newtonsoft.Json.Serialization;
+using AutoMapper;
+using Asset1.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using Asset1.PlatformClient.PeopleClient;
+using Asset1.Business.Builders.PeopleBuilder;
 
 namespace Asset1.Web
 {
@@ -42,13 +47,20 @@ namespace Asset1.Web
                 
             _config = builder.Build();
 
-            using (
-                var context = new PeopleContext(
-                    _config,
-                    new Microsoft.EntityFrameworkCore.DbContextOptions<PeopleContext>()
-                ))
+
+            //better senario below in config.
+            using (var context = new PeopleContext(_config,new Microsoft.EntityFrameworkCore.DbContextOptions<PeopleContext>()))
             {
-                context.Database.EnsureCreated();
+                try
+                {
+                    context.Person.Any();
+                }
+                catch (Exception ex)
+                {
+                    //context.Database.EnsureCreated();
+                    context.Database.Migrate();
+                }
+               
             }
         }
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -80,7 +92,8 @@ namespace Asset1.Web
             //Do Dev stuff here: EXAMPLE - Mock Services
             services.AddScoped<IPeopleDirector, PeopleDirector>();
             services.AddScoped<IPeopleComposer, PeopleComposer>();
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
+            services.AddScoped<IPeopleBuilder, PeopleBuilder>();
+            services.AddSingleton<IPeopleServiceClient, PeopleServiceClient>();
 
             //Only one per requrest cycle
             services.AddScoped<IPersonRepository, PersonRepository>();
@@ -88,6 +101,11 @@ namespace Asset1.Web
                 .AddJsonOptions(
                     config =>
                         config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver()
+
+                )
+                .AddJsonOptions(
+                    config =>
+                        config.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter())
                 );
         }
 
@@ -99,6 +117,21 @@ namespace Asset1.Web
             Asset1ContextSeedData seeder
         )
         {
+            //using (var dataContext = (PeopleContext)app.ApplicationServices.GetService(typeof(PeopleContext)))
+            //{
+            //    dataContext.Database.Migrate();
+            //}
+
+                //Initialize our Mappers 
+                Mapper.Initialize(
+                    config =>
+                    {
+                        config.CreateMap<PersonViewModel, Person>().ReverseMap(); //sets up both directions of mapping using ReverseMap
+                    }
+                );
+
+
+
             loggerFactory.AddConsole();
 
             if (env.IsDevelopment())
