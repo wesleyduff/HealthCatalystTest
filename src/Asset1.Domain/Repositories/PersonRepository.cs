@@ -1,4 +1,5 @@
 ﻿using Asset1.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Asset1.Domain.Repositories
         public IEnumerable<Person> GetPeople()
         {
             _logger.LogInformation("Getting All People From The DataBase");
-            return _context.Person.ToList();
+            return _context.Person.Include(t => t.Location).Include(t => t.Picture).ToList();
         }
 
         public void AddPerson(Person person)
@@ -36,6 +37,14 @@ namespace Asset1.Domain.Repositories
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync()) > 0;
+        }
+
+        public Person GetPersonById(int Id)
+        {
+            return _context.Person.Where(t => t.Id == Id)
+                .Include(t => t.Location)
+                .Include(t => t.Picture)
+                .FirstOrDefault();
         }
     }
 }

@@ -14,5 +14,7 @@ namespace Asset1.PlatformClient.PeopleClient
         void AddPerson(Person person);
 
         Task<bool> SaveChangesAsync();
+
+        Person GetPersonById(int Id);
     }
 }

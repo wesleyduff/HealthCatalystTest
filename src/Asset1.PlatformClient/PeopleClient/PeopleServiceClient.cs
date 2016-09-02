@@ -28,6 +28,18 @@ namespace Asset1.PlatformClient.PeopleClient
             return _repository.GetPeople();
         }
 
+        public Person GetPersonById(int Id)
+        {
+            try
+            {
+                return _repository.GetPersonById(Id);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             return await _repository.SaveChangesAsync();

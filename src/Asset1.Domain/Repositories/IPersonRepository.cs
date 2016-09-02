@@ -11,5 +11,7 @@ namespace Asset1.Domain.Repositories
         void AddPerson(Person person);
 
         Task<bool> SaveChangesAsync();
+
+        Person GetPersonById(int Id);
     }
 }

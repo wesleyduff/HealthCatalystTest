@@ -11,6 +11,8 @@ namespace Asset1.Business.Directors.PeopleDirector
     {
         IEnumerable<Person> BuildPeople();
 
+        Person GetPerson(int Id);
+
         Task<bool> SavePeopleAsync(Person person);
     }
 }

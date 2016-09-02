@@ -1,6 +1,7 @@
 ﻿using Asset1.Business.Builders.PeopleBuilder;
 using Asset1.Domain.Entities;
 using Asset1.Domain.Repositories;
+using Asset1.PlatformClient.PeopleClient;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,15 +11,18 @@ namespace Asset1.Business.Directors.PeopleDirector
     public class PeopleDirector : IPeopleDirector
     {
         private IPeopleBuilder _builder;
+        private IPeopleServiceClient _client;
         private IPersonRepository _repository;
 
         public PeopleDirector(
             IPersonRepository repository,
-            IPeopleBuilder builder
+            IPeopleBuilder builder,
+            IPeopleServiceClient client
             )
         {
             _repository = repository;
             _builder = builder;
+            _client = client;
         }
 
         public IEnumerable<Person> BuildPeople()
@@ -39,6 +43,11 @@ namespace Asset1.Business.Directors.PeopleDirector
 
 
 
+        }
+
+        public Person GetPerson(int Id)
+        {
+            return _client.GetPersonById(Id);
         }
 
         public async Task<bool> SavePeopleAsync(Person person)
