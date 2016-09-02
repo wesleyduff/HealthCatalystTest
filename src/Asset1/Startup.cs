@@ -13,6 +13,7 @@ using Asset1.Business.Directors.PeopleDirector;
 using Asset1.Composers.People;
 using Asset1.Domain.Seed;
 using Asset1.Domain.Repositories;
+using Newtonsoft.Json.Serialization;
 
 namespace Asset1.Web
 {
@@ -83,7 +84,11 @@ namespace Asset1.Web
 
             //Only one per requrest cycle
             services.AddScoped<IPersonRepository, PersonRepository>();
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(
+                    config =>
+                        config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver()
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

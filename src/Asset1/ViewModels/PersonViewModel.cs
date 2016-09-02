@@ -44,14 +44,17 @@ namespace Asset1.ViewModels
                 }
                 else
                 {
-                    throw new NullReferenceException("First and or last name cannot be null");
+                    returnString.Append("Full Name Missing");
                 }
                 return returnString.ToString();
             }
         }
         
         public Location Location { get; set; }
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
+        [Phone]
         public string Phone { get; set; }
         public Picture Picture { get; set; }
         public DateTime DateCreated { get; set; }
