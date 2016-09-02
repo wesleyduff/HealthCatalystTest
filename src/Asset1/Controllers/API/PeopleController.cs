@@ -53,6 +53,11 @@ namespace Asset1.Controllers.API
             }
         }
 
+        /// <summary>
+        /// Add a new person to the list of people
+        /// </summary>
+        /// <param name="thePerson"></param>
+        /// <returns>Person View Model if creation was successful.</returns>
         [HttpPost("")]
         public async Task<IActionResult> Post([FromBody]PersonViewModel thePerson)
         {
@@ -73,44 +78,55 @@ namespace Asset1.Controllers.API
                     {
 
                         return Ok(
-                                    JObject.FromObject(
-                                        new
-                                        {
-                                            status = "Exception Thrown",
+                                    JObject.FromObject(new {
+                                            status = "Bad Request",
                                             result = ModelState,//using this because it is for my debuging purposes only... Not for production
                                             message ="Failed to save changes to the DataBase."
-                                        }
-                                    )
-                                );
+                                        }));
                     }
                     
                 }
                 catch (Exception ex)
                 {
 
-                    return Ok(
-                                JObject.FromObject(
-                                    new
-                                    {
+                    return Ok(JObject.FromObject(new {
                                         status = "Exception Thrown",
                                         result = ModelState,//using this because it is for my debuging purposes only... Not for production
                                         message = ex.Message
-                                    }
-                                )
-                            );
+                                    }));
                 }
             }
 
             return Ok(
-                JObject.FromObject(
-                    new
-                    {
+                JObject.FromObject(new {
                         status = "Bad Data - Model State is faulty",
                         result = ModelState //using this because it is for my debuging purposes only... Not for production
-                    }
-                )
-            );
+                    }));
 
+        }
+
+        /// <summary>
+        /// Get a person from the database by their Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>A JSON object of a persons data from the database</returns>
+        [HttpGet("{Id}")]
+        public IActionResult Get(int Id)
+        {
+            var person = _director.GetPerson(Id);
+
+            if(person != null)
+            {
+               return Ok(person);
+            } else
+            {
+               return BadRequest(
+                    JObject.FromObject(new {
+                                            status = "Bad Request",
+                                            result = ModelState,//using this because it is for my debuging purposes only... Not for production
+                                            message = $"Problem getting person with and id of {Id}",
+                                        }));
+            }
         }
     }
 }

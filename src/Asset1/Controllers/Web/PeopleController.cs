@@ -33,17 +33,7 @@ namespace Asset1.Controllers.Web
         /// <returns></returns>
         public IActionResult Manage()
         {
-            try
-            {
-                var data = _composer.Compose();
-                return View(data);
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError($"Failed to get people: {ex.Message}");
-                return Redirect("/error");
-            }
-            
+            return View();
         }
 
         /// <summary>
