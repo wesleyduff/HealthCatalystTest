@@ -40,6 +40,15 @@ namespace Asset1.Web
                 .AddEnvironmentVariables(); //override whats in the config.json file with the environment variables. Set inside Asset1.Web's properties environment variables.
                 
             _config = builder.Build();
+
+            using (
+                var context = new PeopleContext(
+                    _config,
+                    new Microsoft.EntityFrameworkCore.DbContextOptions<PeopleContext>()
+                ))
+            {
+                context.Database.EnsureCreated();
+            }
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
