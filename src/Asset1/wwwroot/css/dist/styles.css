@@ -1,4 +1,5 @@
 /* site.css */
+/*----- MIXINS */
 .headshot {
   max-width: 50px;
   border: 1px solid #222;
@@ -50,4 +51,153 @@
   -o-transition: margin-left ease 0.25s;
   -webkit-transition: margin-left ease 0.25s;
   transition: margin-left ease 0.25s;
+}
+/* --- StYLES ---- */
+section {
+  padding: 10px;
+  position: relative;
+  height: 100%;
+}
+section#people_list > div {
+  padding: 15px 0 15px 20px;
+  background: #b3d4fc;
+  /* Old browsers */
+  background: -moz-linear-gradient(left, #b3d4fc 0%, #b0d9f4 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #b3d4fc 0%, #b0d9f4 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #b3d4fc 0%, #b0d9f4 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3d4fc', endColorstr='#b0d9f4', GradientType=1);
+  /* IE6-9 */
+}
+section#people_list > div input {
+  padding-left: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+section#people_list header {
+  margin-bottom: 31px;
+}
+section#people_list ul {
+  padding: 0;
+}
+section#people_list ul li {
+  background-color: #eeecea;
+}
+section#people_list ul li figure {
+  text-align: center;
+}
+section#people_list ul li figure b {
+  display: block;
+  font-size: 1.5em;
+}
+section#people_list article li {
+  display: inline-block;
+  font-size: 1.3em;
+  padding: 10px;
+  position: relative;
+  min-height: 80px;
+}
+section#people_list article li:hover {
+  cursor: pointer;
+}
+section#people_list article li:hover i {
+  font-size: 3.5em;
+  color: #008cba;
+  top: -45px;
+  -moz-transition: font-size 0.5s, color 0.5s, top 0.2s;
+  -o-transition: font-size 0.5s, color 0.5s, top 0.2s;
+  -webkit-transition: font-size 0.5s, color 0.5s, top 0.2s;
+  transition: font-size 0.5s, color 0.5s, top 0.2s;
+}
+section#people_list article li i {
+  color: #008cba;
+  text-align: center;
+  font-size: 2em;
+  position: absolute;
+  width: 100%;
+  top: -25px;
+  left: inherit;
+}
+.picture_large {
+  border: 1px solid #AAA;
+  padding: 3px;
+  border-radius: 65px;
+}
+/*  --- ANIMATIONS */
+/* KeyFrames */
+@-webkit-keyframes icon-jiggle {
+  from {
+    top: 0;
+    color: black;
+    font-size: 2em;
+  }
+  to {
+    top: -10px;
+    color: darkslateblue;
+    font-size: 2.6em;
+  }
+}
+@-moz-keyframes icon-jiggle {
+  from {
+    top: 0;
+    color: black;
+    font-size: 2em;
+  }
+  to {
+    top: -10px;
+    color: darkslateblue;
+    font-size: 2.6em;
+  }
+}
+@keyframes icon-jiggle {
+  from {
+    top: 0;
+    color: black;
+    font-size: 2em;
+  }
+  to {
+    top: -10px;
+    color: darkslateblue;
+    font-size: 2.6em;
+  }
+}
+/* ---- Media Queries --- */
+@media (min-width: 34em) {
+  article li {
+    text-align: center;
+    left: 0;
+  }
+}
+@media (min-width: 48em) {
+  article li {
+    text-align: center;
+    left: 0;
+  }
+}
+@media (min-width: 62em) {
+  article section {
+    position: relative;
+    top: 85%;
+    -webkit-transform: translateY(85%);
+    -ms-transform: translateY(85%);
+    transform: translateY(85%);
+  }
+  article section i {
+    left: 0;
+  }
+}
+@media (min-width: 75em) {
+  article section {
+    position: relative;
+    top: 85%;
+    -webkit-transform: translateY(85%);
+    -ms-transform: translateY(85%);
+    transform: translateY(85%);
+  }
+  article section i {
+    left: 0;
+  }
 }

@@ -29,6 +29,7 @@ gulp.task('bundling', folders(paths.folder, function (folder) {
     .pipe(order([
         '*-services.js',
         '*-directives.js',
+        '*-filters.js',
         '*-controllers.js',
         '*-module.js'
     ]))
