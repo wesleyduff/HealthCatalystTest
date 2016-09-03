@@ -7,26 +7,39 @@
         <ul class="list-group col-xs-12">
             <li class="list-group-item" ng-repeat="person in people | startsWithLetter:letter ">
                 <article class="row">
-                    <header class="col-md-3">
+                    <header class="col-xs-12 col-md-3">
                         <figure>
-                            <img class="picture_large" ng-src="{{person.picture.large}}"  />
+                            <img class="picture_large" ng-src="{{person.picture.large}}" />
                             <figcaption>
                                 Hello, My Name is
                                 <b>{{person.fullName}}</b>
                             </figcaption>
                         </figure>
                     </header>
-                    <section class="col-md-9">
-                        <ul class="row">
-                            <li class="col-xs-12 col-md-4">
-                                <i class="fa fa-mobile fa-4" aria-hidden="true"></i>
-                                {{person.phone}}
-                            </li>
-                            <li class="col-xs-12 col-md-4">
-                                <i class="fa fa-envelope fa-4" aria-hidden="true"></i>
-                                {{person.email}}
-                            </li>
-                        </ul>
+                    <section class="col-xs-12 col-md-9">
+                        <div class="row">
+                            <address class="col-xs-12">
+                                {{person.address.street}}
+                                <br />
+                                {{person.address.city}} {{person.address.state}}, {{person.address.postalCode}}
+                            </address>
+                        </div>
+                       <div class="row">
+                           <ul class="row">
+                               <li class="col-xs-12 col-md-2">
+                                   <i class="fa fa-mobile fa-4" aria-hidden="true"></i>
+                                   <div>{{person.phone}}</div>
+                               </li>
+                               <li class="col-xs-12 col-md-2">
+                                   <i class="fa fa-envelope fa-4" aria-hidden="true"></i>
+                                   <div>{{person.email}}</div>
+                               </li>
+                               <li class="col-xs-12 col-md-2">
+                                   <i class="fa fa-battery-three-quarters fa-4" aria-hidden="true"></i>
+                                   <div>{{person.age}}</div>
+                               </li>
+                           </ul>
+                       </div>
                     </section>
                 </article>
             </li>

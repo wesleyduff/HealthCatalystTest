@@ -82,6 +82,7 @@ section#people_list header {
 }
 section#people_list ul {
   padding: 0;
+  margin-top: 30px;
 }
 section#people_list ul li {
   background-color: #eeecea;
@@ -93,33 +94,22 @@ section#people_list ul li figure b {
   display: block;
   font-size: 1.5em;
 }
+section#people_list article address {
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+}
 section#people_list article li {
-  display: inline-block;
-  font-size: 1.3em;
+  display: table;
   padding: 10px;
   position: relative;
   min-height: 80px;
 }
-section#people_list article li:hover {
-  cursor: pointer;
-}
-section#people_list article li:hover i {
-  font-size: 3.5em;
-  color: #008cba;
-  top: -45px;
-  -moz-transition: font-size 0.5s, color 0.5s, top 0.2s;
-  -o-transition: font-size 0.5s, color 0.5s, top 0.2s;
-  -webkit-transition: font-size 0.5s, color 0.5s, top 0.2s;
-  transition: font-size 0.5s, color 0.5s, top 0.2s;
-}
 section#people_list article li i {
   color: #008cba;
-  text-align: center;
-  font-size: 2em;
+  font-size: 4em;
   position: absolute;
-  width: 100%;
-  top: -25px;
-  left: inherit;
+  left: 33%;
 }
 .picture_large {
   border: 1px solid #AAA;
@@ -166,38 +156,56 @@ section#people_list article li i {
 }
 /* ---- Media Queries --- */
 @media (min-width: 34em) {
-  article li {
+  section#people_list article li {
     text-align: center;
-    left: 0;
+  }
+  section#people_list article li i {
+    display: block;
+    position: static;
+  }
+  section#people_list article li div {
+    display: block;
   }
 }
 @media (min-width: 48em) {
-  article li {
+  section#people_list article li {
     text-align: center;
-    left: 0;
+  }
+  section#people_list article li i {
+    display: block;
+    position: static;
+  }
+  section#people_list article li div {
+    display: block;
   }
 }
 @media (min-width: 62em) {
-  article section {
-    position: relative;
-    top: 85%;
-    -webkit-transform: translateY(85%);
-    -ms-transform: translateY(85%);
-    transform: translateY(85%);
+  section#people_list article li i {
+    position: absolute;
   }
-  article section i {
-    left: 0;
+  section#people_list article li div {
+    opacity: 0;
+    display: table-cell;
+    vertical-align: bottom;
   }
-}
-@media (min-width: 75em) {
-  article section {
-    position: relative;
-    top: 85%;
-    -webkit-transform: translateY(85%);
-    -ms-transform: translateY(85%);
-    transform: translateY(85%);
+  section#people_list article li:hover {
+    cursor: pointer;
   }
-  article section i {
-    left: 0;
+  section#people_list article li:hover i {
+    font-size: 2.5em;
+    color: #008cba;
+    left: 33%;
+    -moz-transition: font-size 0.5s, color 0.5s, left 0.2s;
+    -o-transition: font-size 0.5s, color 0.5s, left 0.2s;
+    -webkit-transition: font-size 0.5s, color 0.5s, left 0.2s;
+    transition: font-size 0.5s, color 0.5s, left 0.2s;
+  }
+  section#people_list article li:hover div {
+    vertical-align: bottom;
+    opacity: 1;
+    -moz-transition: font-size 0.5s, opacity 0.5s;
+    -o-transition: font-size 0.5s, opacity 0.5s;
+    -webkit-transition: font-size 0.5s, opacity 0.5s;
+    transition: font-size 0.5s, opacity 0.5s;
   }
 }

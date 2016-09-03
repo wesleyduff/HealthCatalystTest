@@ -8,17 +8,10 @@ namespace Asset1.ViewModels
 {
     public class PersonViewModel
     {
-
-        public enum SirName
-        {
-            Mr = 1,
-            Mrs,
-            Miss
-        }
+        
 
         public int Id { get; set; }
         public Gender Gender { get; set; }
-        public SirName Title { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
@@ -33,10 +26,6 @@ namespace Asset1.ViewModels
             get
             {
                 var returnString = new StringBuilder();
-                if (this.Title != null)
-                {
-                    returnString.Append(this.Title + " ");
-                }
                 if (this.FirstName != null && this.LastName != null)
                 {
                     returnString.Append(this.FirstName + ' ' + this.LastName);
@@ -49,7 +38,8 @@ namespace Asset1.ViewModels
             }
         }
         
-        public Location Location { get; set; }
+        public Location Address { get; set; }
+        public int Age { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }

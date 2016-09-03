@@ -27,8 +27,9 @@ namespace Asset1.Domain.Seed
                     LastName = "roche",
                     DateCreated = DateTime.UtcNow,
                     Email = "louna.roche@example.com",
+                    Age = 45,
                     Gender = Gender.Female,
-                    Location = new Location()
+                    Address = new Location()
                     {
                         City = "le mont-sur-lausanne",
                         PostalCode = "3971",
@@ -41,8 +42,7 @@ namespace Asset1.Domain.Seed
                         Large = "https://randomuser.me/api/portraits/women/4.jpg",
                         Medium = "https://randomuser.me/api/portraits/med/women/4.jpg",
                         Small = "https://randomuser.me/api/portraits/thumb/women/4.jpg"
-                    },
-                    Title = SirName.Miss
+                    }
                 };
 
                 var person2 = new Person()
@@ -52,7 +52,8 @@ namespace Asset1.Domain.Seed
                     DateCreated = DateTime.UtcNow,
                     Email = "sofie.andersen@example.com",
                     Gender = Gender.Female,
-                    Location = new Location()
+                    Age = 27,
+                    Address = new Location()
                     {
                         City = "beder",
                         PostalCode = "95887",
@@ -65,8 +66,7 @@ namespace Asset1.Domain.Seed
                         Large = "https://randomuser.me/api/portraits/women/12.jpg",
                         Medium = "https://randomuser.me/api/portraits/med/women/12.jpg",
                         Small = "https://randomuser.me/api/portraits/thumb/women/12.jpg"
-                    },
-                    Title = SirName.Mrs
+                    }
                 };
                 var person3 = new Person()
                 {
@@ -75,7 +75,8 @@ namespace Asset1.Domain.Seed
                     DateCreated = DateTime.UtcNow,
                     Email = "jeremy.jones@example.com",
                     Gender = Gender.Male,
-                    Location = new Location()
+                    Age = 32,
+                    Address = new Location()
                     {
                         City = "beder",
                         PostalCode = "95887",
@@ -88,8 +89,7 @@ namespace Asset1.Domain.Seed
                         Large = "https://randomuser.me/api/portraits/men/63.jpg",
                         Medium = "https://randomuser.me/api/portraits/med/men/63.jpg",
                         Small = "https://randomuser.me/api/portraits/thumb/men/63.jpg"
-                    },
-                    Title = SirName.Mr
+                    }
                 };
                 #endregion
 

@@ -26,7 +26,7 @@ namespace Asset1.Domain.Repositories
         public IEnumerable<Person> GetPeople()
         {
             _logger.LogInformation("Getting All People From The DataBase");
-            return _context.Person.Include(t => t.Location).Include(t => t.Picture).ToList();
+            return _context.Person.Include(t => t.Address).Include(t => t.Picture).ToList();
         }
 
         public void AddPerson(Person person)
@@ -42,7 +42,7 @@ namespace Asset1.Domain.Repositories
         public Person GetPersonById(int Id)
         {
             return _context.Person.Where(t => t.Id == Id)
-                .Include(t => t.Location)
+                .Include(t => t.Address)
                 .Include(t => t.Picture)
                 .FirstOrDefault();
         }

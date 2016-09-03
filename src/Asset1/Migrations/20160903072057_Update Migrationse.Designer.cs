@@ -8,9 +8,10 @@ using Asset1.Domain.Entities;
 namespace Asset1.Migrations
 {
     [DbContext(typeof(PeopleContext))]
-    partial class PeopleContextModelSnapshot : ModelSnapshot
+    [Migration("20160903072057_Update Migrationse")]
+    partial class UpdateMigrationse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -39,8 +40,6 @@ namespace Asset1.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AddressId");
-
                     b.Property<int>("Age");
 
                     b.Property<DateTime>("DateCreated");
@@ -53,13 +52,15 @@ namespace Asset1.Migrations
 
                     b.Property<string>("LastName");
 
+                    b.Property<int?>("LocationId");
+
                     b.Property<string>("Phone");
 
                     b.Property<int?>("PictureId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("LocationId");
 
                     b.HasIndex("PictureId");
 
@@ -84,9 +85,9 @@ namespace Asset1.Migrations
 
             modelBuilder.Entity("Asset1.Domain.Entities.Person", b =>
                 {
-                    b.HasOne("Asset1.Domain.Entities.Location", "Address")
+                    b.HasOne("Asset1.Domain.Entities.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("LocationId");
 
                     b.HasOne("Asset1.Domain.Entities.Picture", "Picture")
                         .WithMany()

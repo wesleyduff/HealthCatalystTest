@@ -43,10 +43,9 @@ namespace Tests
                         LastName = "Fake N",
                         Email = "example@example.com",
                         Gender = Gender.Male,
-                        Location = null,
+                        Address = null,
                         Phone = "434-333-3333",
-                        Picture = null,
-                        Title = SirName.Mr
+                        Picture = null
                     }
             };
             var mock = new Mock<IPeopleBuilder>();
