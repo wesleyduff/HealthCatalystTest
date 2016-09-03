@@ -1,10 +1,7 @@
 ﻿(function (angular, APP_GLOBALS) {
     'use strict';
 
-    APP_GLOBALS.Controllers = {
-        MainController: function ($scope) {
-
-        }
+    APP_GLOBALS.Directives = {
     };
 
 })(angular, APP_GLOBALS);

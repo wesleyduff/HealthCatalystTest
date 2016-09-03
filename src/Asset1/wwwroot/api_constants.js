@@ -1,11 +1,13 @@
 ﻿define(function () {
     'use strict';
 
-    var BASE = "http://base"; //TODO Set Base
+    var BASE = "http://localhost:51277/api"; //TODO Set Base
     var API = {
-        url: function () {
-            return BASE + "/api"
-        }
+            uri : {
+                people: function () {
+                    return BASE + "/people"
+                }
+            }
     };
 
     return API;
