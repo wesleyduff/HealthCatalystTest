@@ -1,6 +1,7 @@
 ﻿using Asset1.Domain.Entities;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -12,7 +13,7 @@ namespace Asset1.ViewModels
 
         public int Id { get; set; }
         public Gender Gender { get; set; }
-
+        public ICollection<Interests> Interests { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 2)]
         public string FirstName { get; set; }

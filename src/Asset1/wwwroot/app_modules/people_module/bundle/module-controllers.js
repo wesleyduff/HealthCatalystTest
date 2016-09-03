@@ -2,7 +2,7 @@
     'use strict';
 
     APP_GLOBALS.Controllers = {
-        MainController: function ($scope, $peopleFactoryDataService, $log) {
+        MainController: function ($scope, $peopleFactoryDataService, $log, $filter) {
             /* -------------------------------------- */
             /* ---------- RESPONSE Methods ---------- */
             /* -------------------------------------- */
@@ -10,6 +10,9 @@
                 getAllPeople: {
                     success: function (collection) {
                         $scope.people = collection;
+                        $scope.man = $filter('filterGender')(collection, "Male");
+                        $scope.women = $filter('filterGender')(collection, "Female");;
+                        
                     },
                     notification: function (notification) {
                         $log.debug(notification);

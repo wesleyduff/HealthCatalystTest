@@ -38,6 +38,7 @@ namespace Asset1.Domain.Entities
         public Location Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public ICollection<Interests> Interests { get; set; }
         public Picture Picture { get; set; }
         public DateTime DateCreated { get; set; }
     }

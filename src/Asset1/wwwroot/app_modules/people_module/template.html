@@ -1,47 +1,69 @@
-﻿<h1>List of People</h1>
+﻿<section class="row">
+    <div class="col-xs-6">
+        <article class="card">
+            <img src="img/woman.png" alt="woman" />
+            <strong>{{women.length}}</strong>
+            Women
+        </article>
+    </div>
+    <div class="col-xs-6">
+        <article class="card">
+            <img src="img/man.png" alt="woman" />
+            <strong>{{man.length}}</strong>
+            Men
+        </article>
+    </div>
+</section>
+<h1>List of People</h1>
 <section id="people_list">
-        <div class="col-xs-12">
-            <i class="fa fa-search" aria-hidden="true"></i>
-            <input class="search" ng-model="letter" placeholder="Search People"/>
-        </div>
-        <ul class="list-group col-xs-12">
-            <li class="list-group-item" ng-repeat="person in people | startsWithLetter:letter ">
-                <article class="row">
-                    <header class="col-xs-12 col-md-3">
-                        <figure>
-                            <img class="picture_large" ng-src="{{person.picture.large}}" />
-                            <figcaption>
-                                Hello, My Name is
-                                <b>{{person.fullName}}</b>
-                            </figcaption>
-                        </figure>
-                    </header>
-                    <section class="col-xs-12 col-md-9">
-                        <div class="row">
-                            <address class="col-xs-12">
-                                {{person.address.street}}
-                                <br />
-                                {{person.address.city}} {{person.address.state}}, {{person.address.postalCode}}
-                            </address>
-                        </div>
-                       <div class="row">
-                           <ul class="row">
-                               <li class="col-xs-12 col-md-2">
-                                   <i class="fa fa-mobile fa-4" aria-hidden="true"></i>
-                                   <div>{{person.phone}}</div>
-                               </li>
-                               <li class="col-xs-12 col-md-2">
-                                   <i class="fa fa-envelope fa-4" aria-hidden="true"></i>
-                                   <div>{{person.email}}</div>
-                               </li>
-                               <li class="col-xs-12 col-md-2">
-                                   <i class="fa fa-battery-three-quarters fa-4" aria-hidden="true"></i>
-                                   <div>{{person.age}}</div>
-                               </li>
-                           </ul>
-                       </div>
-                    </section>
-                </article>
-            </li>
-        </ul>
+    <div class="col-xs-12">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input class="search" ng-model="letter" placeholder="Search People" />
+    </div>
+    <ul class="list-group col-xs-12">
+        <li class="list-group-item" ng-repeat="person in people | startsWithLetter:letter ">
+            <article class="row">
+                <header class="col-xs-12 col-md-3">
+                    <figure>
+                        <img class="picture_large" ng-src="{{person.picture.large}}" />
+                        <figcaption>
+                            Hello, My Name is
+                            <b>{{person.fullName}}</b>
+                        </figcaption>
+                    </figure>
+                </header>
+                <section class="col-xs-12 col-md-9">
+                    <div class="row">
+                        <address class="col-xs-12">
+                            {{person.address.street}}
+                            <br />
+                            {{person.address.city}} {{person.address.state}}, {{person.address.postalCode}}
+                        </address>
+                    </div>
+                    <div class="row">
+                        <ul class="row">
+                            <li class="col-xs-12 col-md-2">
+                                <i class="fa fa-mobile fa-4" aria-hidden="true"></i>
+                                <div>{{person.phone}}</div>
+                            </li>
+                            <li class="col-xs-12 col-md-2">
+                                <i class="fa fa-envelope fa-4" aria-hidden="true"></i>
+                                <div>{{person.email}}</div>
+                            </li>
+                            <li class="col-xs-12 col-md-2">
+                                <i class="fa fa-battery-three-quarters fa-4" aria-hidden="true"></i>
+                                <div>{{person.age}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <dl class="col-xs-12">
+                    <dt>Interests : </dt>
+                    <dd ng-repeat="interest in person.interests">
+                        {{interest.activity}} <strong ng-if="!$last"> | </strong>
+                    </dd>
+                </dl>
+            </article>
+        </li>
+    </ul>
 </section>

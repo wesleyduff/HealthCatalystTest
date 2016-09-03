@@ -42,6 +42,11 @@ namespace Asset1.Domain.Seed
                         Large = "https://randomuser.me/api/portraits/women/4.jpg",
                         Medium = "https://randomuser.me/api/portraits/med/women/4.jpg",
                         Small = "https://randomuser.me/api/portraits/thumb/women/4.jpg"
+                    },
+                    Interests = new List<Interests>() {
+                        new Interests() { Activity = "Watching Movies" },
+                        new Interests() { Activity = "Reading" },
+                        new Interests() { Activity = "Swimming" }
                     }
                 };
 
@@ -66,6 +71,10 @@ namespace Asset1.Domain.Seed
                         Large = "https://randomuser.me/api/portraits/women/12.jpg",
                         Medium = "https://randomuser.me/api/portraits/med/women/12.jpg",
                         Small = "https://randomuser.me/api/portraits/thumb/women/12.jpg"
+                    },
+                    Interests = new List<Interests>() {
+                        new Interests() { Activity = "Volley Ball" },
+                        new Interests() { Activity = "Hiking" }
                     }
                 };
                 var person3 = new Person()
@@ -89,6 +98,10 @@ namespace Asset1.Domain.Seed
                         Large = "https://randomuser.me/api/portraits/men/63.jpg",
                         Medium = "https://randomuser.me/api/portraits/med/men/63.jpg",
                         Small = "https://randomuser.me/api/portraits/thumb/men/63.jpg"
+                    },
+                    Interests = new List<Interests>() {
+                        new Interests() { Activity = "Skiing" },
+                        new Interests() { Activity = "Hiking" }
                     }
                 };
                 #endregion
