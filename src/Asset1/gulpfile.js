@@ -8,8 +8,8 @@
 
 
 var paths = {
-    scripts: ['app/app_modules/**/bundle/*.js'],
-    folder: 'app/app_modules/'
+    scripts: ['wwwroot/app_modules/**/bundle/*.js'],
+    folder: 'wwwroot/app_modules/'
 }
 
 gulp.task('bundling', folders(paths.folder, function (folder) {
@@ -18,7 +18,7 @@ gulp.task('bundling', folders(paths.folder, function (folder) {
 
     //optimize
     return rjs({
-        baseUrl: './app/app_modules/test_module/bundle/',
+        baseUrl: './wwwroot/app_modules/test_module/bundle/',
         name: 'module-module',
         out: 'module_combined.js',
         findNestedDependencies: true
@@ -26,7 +26,7 @@ gulp.task('bundling', folders(paths.folder, function (folder) {
     //uglify
     //.pipe(concat("module_combined.js"))
     //dist
-    .pipe(gulp.dest('./app/app_modules/' + folder + '/build/'))
+    .pipe(gulp.dest('./wwwroot/app_modules/' + folder + '/build/'))
 }));
 
 gulp.task('watch', function () {
