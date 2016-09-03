@@ -4,35 +4,45 @@
     less = require('gulp-less'),
     folders = require('gulp-folders'),
     minify = require('gulp-minify'),
-    rjs = require('gulp-requirejs');
+    order = require('gulp-order'),
+    path = require('path');
 
 
 var paths = {
     scripts: ['wwwroot/app_modules/**/bundle/*.js'],
+    less: ['wwwroot/css/LESS/*.less'],
     folder: 'wwwroot/app_modules/'
 }
 
+gulp.task('less', function () {
+    console.log(path.join(__dirname, 'less', 'includes'));
+    return gulp.src('wwwroot/css/LESS/*.less')
+    .pipe(less({
+        paths: [path.join(__dirname, 'less', 'includes')]
+    }))
+    .pipe(gulp.dest('wwwroot/css/dist'))
+})
+
 gulp.task('bundling', folders(paths.folder, function (folder) {
     console.log(folder);
-    //return gulp.src('./app/app_modules/' + folder + '/bundle/module-module.js')
-
-    //optimize
-    return rjs({
-        baseUrl: './wwwroot/app_modules/test_module/bundle/',
-        name: 'module-module',
-        out: 'module_combined.js',
-        findNestedDependencies: true
-    })
+    return gulp.src('wwwroot/app_modules/' + folder + '/bundle/*.js')
+    .pipe(order([
+        '*-services.js',
+        '*-directives.js',
+        '*-controllers.js',
+        '*-module.js'
+    ]))
     //uglify
-    //.pipe(concat("module_combined.js"))
+    .pipe(concat("module_combined.js"))
     //dist
     .pipe(gulp.dest('./wwwroot/app_modules/' + folder + '/build/'))
 }));
 
 gulp.task('watch', function () {
     gulp.watch(paths.scripts, ['bundling']);
+    gulp.watch(paths.less, ['less']);
 });
 
 
 
-gulp.task('default', ['watch', 'bundling']);
+gulp.task('default', ['watch', 'bundling', 'less']);
