@@ -24,7 +24,7 @@ Front-end
 ** Service pack 3
 
 ### Run C# Unit Tests
-* cd into src/Asset1
+* cd into __\test\Person.Tests__
 * type : dotnet test
 
 ### Run JavaScritp Tests
