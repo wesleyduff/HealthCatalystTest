@@ -11,7 +11,7 @@ var APP = APP || {};
             //this module uses these other angular modules
             'configurables'
         ]
-    );
+    )
    
 
     return module;

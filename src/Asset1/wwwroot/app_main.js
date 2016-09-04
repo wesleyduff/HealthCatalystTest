@@ -1,5 +1,4 @@
 ﻿var APP = APP || {};
-
 define([
   'angular',
   'api_constants',
@@ -9,13 +8,12 @@ define([
   'oclazyload',
   'ui.router',
   'ui.bootstrap',
-  'Shared/services',
+  'Shared/services'
 
 
 
   //application deps
 ], function (angular, API) {
-
     var app = angular.module('app', [
       'ui.router',
       'ui.bootstrap',
@@ -55,8 +53,8 @@ define([
                         return $ocLazyLoad.load({
                             serie : true,
                             files: [
-                                './app_modules/people_module/build/module-combined.js',
-                                './app_modules/people_module/main.js',
+                                 './app_modules/people_module/main.js',
+                                './app_modules/people_module/build/module_combined.js',
                                 './app_modules/people_module/template.html'
                             ]
                         });
