@@ -1,12 +1,13 @@
-﻿(function (angular, APP_GLOBALS) {
+﻿(function (angular, APP) {
 
     'use strict';
 
-    angular.module('test_module')
-        .filter('startsWithLetter', APP_GLOBALS.Filters.startsWithLetter)
-        .filter('filterGender', APP_GLOBALS.Filters.filterGender)
-        .factory('$peopleFactoryDataService', ['$shareManager', '$log', '$cacheFactory', '$http', '$q', APP_GLOBALS.PeopleServices.factory])
-        .controller('MainController', ['$scope', '$peopleFactoryDataService', '$log', '$filter', APP_GLOBALS.Controllers.MainController])
-    ;
+    var module = angular.module('people_module')
+        .filter('filterGender', APP.PeopleFilters().genderFilter)
+        .filter('startsWithLetter', APP.PeopleFilters().startsWithLetter)
+        .controller('MainController', APP.PeopleControllers().MainController)
+        .factory('$peopleFactoryDataService', APP.PeopleServices().PeopleFactoryDataService);
 
-})(angular, APP_GLOBALS)
+    return module;
+
+})(angular, APP);

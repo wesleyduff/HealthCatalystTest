@@ -8,12 +8,16 @@
         'ui.bootstrap': 'lib/angular-bootstrap/ui-bootstrap.min',
         'jquery': 'lib/jquery/dist/jquery.min',
         'domReady': 'lib/vendor.requirejs/domReady',
-        'bootstrapjs': 'lib/bootstrap/dist/js/bootstrap.min.js'
+        'bootstrapjs': 'lib/bootstrap/dist/js/bootstrap.min',
+        'require' : 'lib/requirejs/require'
     },
     shim: {
         'angular': {
             exports: 'angular',
             deps: ['jquery']
+        },
+        'require' : {
+            exports: 'require'
         },
         'oclazyload': ['angular'],
         'jquery': {

@@ -1,4 +1,6 @@
-﻿define([
+﻿var APP = APP || {};
+
+define([
   'angular',
   'api_constants',
   'require',
@@ -7,7 +9,9 @@
   'oclazyload',
   'ui.router',
   'ui.bootstrap',
-  'Shared/services'
+  'Shared/services',
+
+
 
   //application deps
 ], function (angular, API) {
@@ -33,7 +37,7 @@
         $shareManagerProvider.API = API;
 
         /* ----------- SET BASE ROUTE */
-        $urlRouterProvider.otherwise('/test');
+        $urlRouterProvider.otherwise('/dashboard');
 
         $ocLazyLoadProvider.config({
             asyncLoader: require
@@ -41,17 +45,18 @@
 
         $stateProvider
 
-          .state('test',
+          .state('dashboard',
             {
-                url: '/test',
+                url: '/dashboard',
                 templateUrl: 'app_modules/people_module/template.html',
                 controller: 'MainController',
                 resolve: {
                     loadDeps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
+                            serie : true,
                             files: [
-                            './app_modules/people_module/main.js',
-                            './app_modules/people_module/template.html'
+                                  './app_modules/people_module/main.js',
+                                './app_modules/people_module/template.html'
                             ]
                         });
                     }]

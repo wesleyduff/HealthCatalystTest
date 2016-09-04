@@ -5,7 +5,8 @@
     folders = require('gulp-folders'),
     minify = require('gulp-minify'),
     order = require('gulp-order'),
-    path = require('path');
+    path = require('path'),
+    rjs = require('gulp-requirejs');
 
 
 var paths = {
@@ -43,6 +44,16 @@ gulp.task('watch', function () {
     gulp.watch(paths.scripts, ['bundling']);
     gulp.watch(paths.less, ['less']);
 });
+
+gulp.task('optimize', folders(paths.folder, function (folder) {//optimize
+       return rjs({
+            baseUrl: './wwwroot/app_modules/' + folder + '/',
+              name: 'main',
+              out: 'module_optimized.js',
+              findNestedDependencies: true
+          })
+     .pipe(gulp.dest('./wwwroot/app_modules/' + folder + '/build/'))
+ }));
 
 
 

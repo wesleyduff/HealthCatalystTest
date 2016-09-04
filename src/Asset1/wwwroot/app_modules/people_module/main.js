@@ -1,13 +1,25 @@
-﻿var APP_GLOBALS = APP_GLOBALS || {};
-(function (angular, APP_GLOBALS) {
+﻿(function(angular, APP){
 
     'use strict';
 
-    angular.module('test_module', ['configurables',
+    var module = angular.module('people_module',
         [
-        './app_modules/people_module/build/module_combined.js'
+            // ----- ANGULAR MODULES
+            //this module uses these other angular modules
+            'configurables',
+            [
+             // './app_modules/people_module/bundle/module-directives.js',
+               './app_modules/people_module/bundle/module-filters.js',
+               './app_modules/people_module/bundle/module-services.js',
+               './app_modules/people_module/bundle/module-controllers.js',
+               './app_modules/people_module/bundle/module-module.js'
+            ]
         ]
-    ]
     );
+   
 
-})(angular, APP_GLOBALS);
+    return module;
+
+})(angular);
+
+   
