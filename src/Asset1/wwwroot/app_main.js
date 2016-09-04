@@ -1,19 +1,21 @@
 ﻿var APP = APP || {};
 define([
+  'require',
   'angular',
   'api_constants',
-  'require',
+  'serivice_config',
+
 
   //angular deps
   'oclazyload',
   'ui.router',
-  'ui.bootstrap',
-  'Shared/services'
+  'ui.bootstrap'
 
 
 
   //application deps
-], function (angular, API) {
+], function (require, angular, API) {
+    require('serivice_config');
     var app = angular.module('app', [
       'ui.router',
       'ui.bootstrap',

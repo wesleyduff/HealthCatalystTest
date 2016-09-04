@@ -9,7 +9,8 @@
         'jquery': 'lib/jquery/dist/jquery.min',
         'domReady': 'lib/vendor.requirejs/domReady',
         'bootstrapjs': 'lib/bootstrap/dist/js/bootstrap.min',
-        'require' : 'lib/requirejs/require'
+        'require': 'lib/requirejs/require',
+        'serivice_config' : 'Shared/services'
     },
     shim: {
         'angular': {
