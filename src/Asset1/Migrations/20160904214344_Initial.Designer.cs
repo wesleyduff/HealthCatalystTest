@@ -8,8 +8,8 @@ using Asset1.Domain.Entities;
 namespace Asset1.Migrations
 {
     [DbContext(typeof(PeopleContext))]
-    [Migration("20160903141644_Adding Interests")]
-    partial class AddingInterests
+    [Migration("20160904214344_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

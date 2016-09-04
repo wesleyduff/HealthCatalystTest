@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Asset1.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,22 +46,22 @@ namespace Asset1.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AddressId = table.Column<int>(nullable: true),
+                    Age = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     Gender = table.Column<int>(nullable: false),
                     LastName = table.Column<string>(nullable: true),
-                    LocationId = table.Column<int>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
-                    PictureId = table.Column<int>(nullable: true),
-                    Title = table.Column<int>(nullable: false)
+                    PictureId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Person", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Person_Location_LocationId",
-                        column: x => x.LocationId,
+                        name: "FK_Person_Location_AddressId",
+                        column: x => x.AddressId,
                         principalTable: "Location",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -73,10 +73,35 @@ namespace Asset1.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Interests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Activity = table.Column<string>(nullable: true),
+                    PersonId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Interests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Interests_Person_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Person",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Person_LocationId",
+                name: "IX_Interests_PersonId",
+                table: "Interests",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Person_AddressId",
                 table: "Person",
-                column: "LocationId");
+                column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Person_PictureId",
@@ -86,6 +111,9 @@ namespace Asset1.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Interests");
+
             migrationBuilder.DropTable(
                 name: "Person");
 
