@@ -1,4 +1,4 @@
-﻿define(['angular'], function (angular) {
+﻿(function (angular) {
     'use strict';
 
     var module = angular.module('configurables', [])
@@ -14,4 +14,4 @@
         });
 
     return module;
-});
+})(angular)

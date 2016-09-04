@@ -55,7 +55,8 @@ define([
                         return $ocLazyLoad.load({
                             serie : true,
                             files: [
-                                  './app_modules/people_module/main.js',
+                                './app_modules/people_module/build/module-combined.js',
+                                './app_modules/people_module/main.js',
                                 './app_modules/people_module/template.html'
                             ]
                         });

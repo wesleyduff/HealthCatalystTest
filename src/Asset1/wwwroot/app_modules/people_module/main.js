@@ -1,4 +1,7 @@
-﻿(function(angular, APP){
+﻿//adding this for karma testing purposes
+var APP = APP || {};
+
+(function (angular, APP) {
 
     'use strict';
 
@@ -6,20 +9,13 @@
         [
             // ----- ANGULAR MODULES
             //this module uses these other angular modules
-            'configurables',
-            [
-             // './app_modules/people_module/bundle/module-directives.js',
-               './app_modules/people_module/bundle/module-filters.js',
-               './app_modules/people_module/bundle/module-services.js',
-               './app_modules/people_module/bundle/module-controllers.js',
-               './app_modules/people_module/bundle/module-module.js'
-            ]
+            'configurables'
         ]
     );
    
 
     return module;
 
-})(angular);
+})(angular, APP);
 
    

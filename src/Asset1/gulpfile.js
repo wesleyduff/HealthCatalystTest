@@ -5,8 +5,7 @@
     folders = require('gulp-folders'),
     minify = require('gulp-minify'),
     order = require('gulp-order'),
-    path = require('path'),
-    rjs = require('gulp-requirejs');
+    path = require('path');
 
 
 var paths = {
@@ -14,6 +13,24 @@ var paths = {
     less: ['wwwroot/css/LESS/*.less'],
     folder: 'wwwroot/app_modules/'
 }
+
+gulp.task('Test', function (done) {
+    var server = require('karma').Server;
+    
+    new server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
+});
+
+gulp.task('TDD', function (done) {
+    var server = require('karma').Server;
+
+    new server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: false
+    }, done).start();
+});
 
 gulp.task('less', function () {
     console.log(path.join(__dirname, 'less', 'includes'));
