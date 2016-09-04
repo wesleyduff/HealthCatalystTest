@@ -28,7 +28,10 @@ Front-end
 * type : dotnet test
 
 ### Run JavaScritp Tests
-* In Visual Studio : Open Task Runner Explorer => Click "Test" or for Test Driven Development click "TDD"
+* In Visual Studio : 
+  - Open Task Runner Explorer
+    - __select__ "Asset1.Web" from dropdown
+    - Click "Test" or for Test Driven Development click "TDD"
 * Inside the terminal : cd into src\Asset1 : Type in : karma start
 
 
