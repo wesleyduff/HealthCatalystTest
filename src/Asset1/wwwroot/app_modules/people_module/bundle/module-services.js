@@ -72,7 +72,7 @@
                             },
                             addPerson: function (person, titleOptions, stateOptions) {
 
-                                $log.debug('Adding Person : ' + person.firstName + ' ' + person.lastName + ' to database');
+                                $log.debug('Trying Adding Person : ' + person.FirstName + ' ' + person.lastName + ' to database');
 
                                 person.title = titleOptions.selectedOption;
 
@@ -93,11 +93,39 @@
                                 person.location.state = stateOptions.selectedOption.abbreviation;
                                 person.title = titleOptions.selectedOption;
 
+                                //Match ViewModel before sending and Build : Only needed for the post
+                                //Would split this out to its own method if we were updating people too.
+                                var passData = {
+                                    FirstName: person.FirstName,
+                                    LastName: person.lastName,
+                                    Gender: person.gender,
+                                    Email: person.email,
+                                    Phone: person.phone,
+                                    Age: person.age,
+                                    Address: {
+                                        City: person.location.city,
+                                        State: person.location.state,
+                                        Street: person.location.street,
+                                        PostalCode: person.location.postalcode
+                                    },
+                                    Interests: (function () {
+                                        var returnArray = [];
+                                        var interests = person.interests.split(',');
+                                        for (var i = 0; i < interests.length; i++) {
+                                            returnArray.push({ Activity: interests[i] });
+                                        }
+                                        return returnArray;
+                                    })(),
+                                    Picture: {
+                                        Large: person.largePic
+                                    }
+                                };
                                 //make $http call
                                 return $http({
                                     method: 'POST',
-                                    data: person,
-                                    url: API.uri.people()
+                                    data: JSON.stringify(passData),
+                                    url: API.uri.people(),
+                                    headers: { 'Content-Type': 'application/json' }
                                 })
                                 .then(sendResponseData)
                                 .catch(sendCatchResponseData)

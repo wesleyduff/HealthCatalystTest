@@ -146,7 +146,7 @@
                         errorCallBack: function () {
                             //Turn OFF Loader
                             peopleAddMethods.utils.ToggleLoader('off');
-                            $log.debug('xxx---xxx-- Error while calling getAllPeople');
+                            $log.debug('xxx---xxx-- Error adding a person to the database......');
                         },
                         utils: {
                             ToggleLoader: function (val) {
@@ -433,14 +433,9 @@
                     /* ---------- MAIN init data ------------ */
                     /* -------------------------------------- */
                     $scope.addPerson = function () {
-
-                        //make sure a picture is available
-                        if (!person.picture) {
-                            person.picture = $scope.photos[0].picture.large;
-                        }
-
+                        peopleAddMethods.utils.ToggleLoader('on');
                         //add the picture to the person "this" object
-                        this.person.picture = person.picture;
+                        this.person.largePic = person.picture;
 
                         //Add the person to the DB
                         $peopleFactoryDataService.addPerson(this.person, $scope.titleOptions, $scope.stateOptions)

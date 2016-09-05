@@ -48,7 +48,7 @@ body {
             .image_placeholder {
                 height: 72px;
                 width: 72px;
-                background-image: url(../../img/man.png);
+                background-image: url(../../img/person_image_loading.png);
                 background-position-x: 0;
                 background-size: 72px;
             }
@@ -80,7 +80,7 @@ body {
 
         .select-icon {
            visibility:visible;
-           color:@selected-color;
+           color:@disabled-color;
         }
 
         .pre-select-icon {
@@ -215,9 +215,17 @@ section {
 }
 
 .picture_large {
-    border:1px solid #AAA;
-    padding:3px;
-    border-radius:65px;
+    border: 1px solid #AAA;
+    padding: 3px;
+    border-radius: 65px;
+    background-image: url(../../img/person_image_loading.png);
+    background-position-x: 14px;
+    background-size: 95px;
+    width: 128px;
+    height: 128px;
+    background-position-y: 12px;
+    background-repeat: no-repeat;
+    outline: none;
 }
 
 dt, dd {

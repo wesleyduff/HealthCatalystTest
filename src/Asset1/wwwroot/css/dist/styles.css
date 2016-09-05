@@ -28,7 +28,7 @@ body {
 .panel .list-group a .image_placeholder {
   height: 72px;
   width: 72px;
-  background-image: url(../../img/man.png);
+  background-image: url(../../img/person_image_loading.png);
   background-position-x: 0;
   background-size: 72px;
 }
@@ -55,7 +55,7 @@ body {
 }
 .panel .list-group a:hover:not(.active) .select-icon {
   visibility: visible;
-  color: green;
+  color: gray;
 }
 .panel .list-group a:hover:not(.active) .pre-select-icon {
   visibility: hidden;
@@ -166,6 +166,14 @@ section#people_list article li i {
   border: 1px solid #AAA;
   padding: 3px;
   border-radius: 65px;
+  background-image: url(../../img/person_image_loading.png);
+  background-position-x: 14px;
+  background-size: 95px;
+  width: 128px;
+  height: 128px;
+  background-position-y: 12px;
+  background-repeat: no-repeat;
+  outline: none;
 }
 dt,
 dd {

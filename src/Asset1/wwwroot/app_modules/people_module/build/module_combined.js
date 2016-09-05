@@ -72,7 +72,7 @@
                             },
                             addPerson: function (person, titleOptions, stateOptions) {
 
-                                $log.debug('Adding Person : ' + person.firstName + ' ' + person.lastName + ' to database');
+                                $log.debug('Trying Adding Person : ' + person.FirstName + ' ' + person.lastName + ' to database');
 
                                 person.title = titleOptions.selectedOption;
 
@@ -93,11 +93,39 @@
                                 person.location.state = stateOptions.selectedOption.abbreviation;
                                 person.title = titleOptions.selectedOption;
 
+                                //Match ViewModel before sending and Build : Only needed for the post
+                                //Would split this out to its own method if we were updating people too.
+                                var passData = {
+                                    FirstName: person.FirstName,
+                                    LastName: person.lastName,
+                                    Gender: person.gender,
+                                    Email: person.email,
+                                    Phone: person.phone,
+                                    Age: person.age,
+                                    Address: {
+                                        City: person.location.city,
+                                        State: person.location.state,
+                                        Street: person.location.street,
+                                        PostalCode: person.location.postalcode
+                                    },
+                                    Interests: (function () {
+                                        var returnArray = [];
+                                        var interests = person.interests.split(',');
+                                        for (var i = 0; i < interests.length; i++) {
+                                            returnArray.push({ Activity: interests[i] });
+                                        }
+                                        return returnArray;
+                                    })(),
+                                    Picture: {
+                                        Large: person.largePic
+                                    }
+                                };
                                 //make $http call
                                 return $http({
                                     method: 'POST',
-                                    data: person,
-                                    url: API.uri.people()
+                                    data: JSON.stringify(passData),
+                                    url: API.uri.people(),
+                                    headers: { 'Content-Type': 'application/json' }
                                 })
                                 .then(sendResponseData)
                                 .catch(sendCatchResponseData)
@@ -314,12 +342,8 @@
                                 /* ---------------------------------------------------------- */
                                 /* -------------- HANDLE POST : SUCCESS RESPONSE -------------*/
                                 /* ---------------------------------------------------------- */
-                                
-                            },
-                            notification: function (notification) {
-                                $log.debug(notification);
-                            },
-                            complete: function (complete) {
+
+
 
                                 // --- Redirect the user back to the dashboard
                                 /* ---------------------------------------------------------- */
@@ -335,7 +359,14 @@
                                     $state.go('dashboard');
 
                                 }, 5000);
-                                
+
+                            },
+                            notification: function (notification) {
+                                $log.debug(notification);
+                            },
+                            complete: function (complete) {
+
+                               
                                 $log.debug(complete);
                             }
                         },
@@ -357,7 +388,7 @@
                         errorCallBack: function () {
                             //Turn OFF Loader
                             peopleAddMethods.utils.ToggleLoader('off');
-                            $log.debug('xxx---xxx-- Error while calling getAllPeople');
+                            $log.debug('xxx---xxx-- Error adding a person to the database......');
                         },
                         utils: {
                             ToggleLoader: function (val) {
@@ -644,14 +675,9 @@
                     /* ---------- MAIN init data ------------ */
                     /* -------------------------------------- */
                     $scope.addPerson = function () {
-
-                        //make sure a picture is available
-                        if (!person.picture) {
-                            person.picture = $scope.photos[0].picture.large;
-                        }
-
+                        peopleAddMethods.utils.ToggleLoader('on');
                         //add the picture to the person "this" object
-                        this.person.picture = person.picture;
+                        this.person.largePic = person.picture;
 
                         //Add the person to the DB
                         $peopleFactoryDataService.addPerson(this.person, $scope.titleOptions, $scope.stateOptions)
