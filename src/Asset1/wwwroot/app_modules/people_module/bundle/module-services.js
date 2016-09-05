@@ -15,12 +15,10 @@
                         var API = $shareManager.getAPI(),
                             dataCache = $cacheFactory.get('PeoplesCacheData');
 
-                        $log.debug('--- in people services');
-                        $log.debug('>> API : ' + $shareManager.API.uri.people());
-
                         //check for cached people collection
                         if (!dataCache) {
                             //create the cache object
+                            $log.debug('Created cache');
                             dataCache = $cacheFactory('PeoplesCacheData');
                         }
 
@@ -40,8 +38,21 @@
                          * addPeople
                          * <params>person</params>
                          * -----------------------------
+                         * getRandomPhotos
+                         * <params>(OPTIONAL) Number of results you want back</params>
+                         * -- If no argument is provided then 5 results will be returned
                          */
                         return {
+                            //Get some random images to choose from.
+                            //creating a file upload system and handling image cropping etc.. is beyond scope.
+                            getRandomPhotos: function(numberOfResultsRequested){
+                                return $http({
+                                    method: 'GET',
+                                    url: API.uri.random.pictures(numberOfResultsRequested)
+                                })
+                                .then(sendRandomPhotosResponse)
+                                .catch(sendCatchRandomPhotosResponse)
+                            },
                             //Get a JSON object : Array of people objects
                             getAllPeople: function () {
                                 var peopleCollectionFromCache = dataCache.get('peopleCollection');
@@ -59,9 +70,28 @@
                                 .then(sendResponseData)
                                 .catch(sendCatchResponseData)
                             },
-                            addPerson: function (person) {
+                            addPerson: function (person, titleOptions, stateOptions) {
 
                                 $log.debug('Adding Person : ' + person.firstName + ' ' + person.lastName + ' to database');
+
+                                person.title = titleOptions.selectedOption;
+
+                                //set gender
+                                switch (person.title) {
+                                    case 'Mr':
+                                        person.gender = "Male"
+                                        break;
+                                    default:
+                                        person.gender = "Female"
+                                        break;
+                                };
+
+                                //set selections
+                                if (!person.location) {
+                                    person.location = {};
+                                }
+                                person.location.state = stateOptions.selectedOption.abbreviation;
+                                person.title = titleOptions.selectedOption;
 
                                 //make $http call
                                 return $http({
@@ -75,6 +105,33 @@
                             }
                         };
 
+
+
+
+
+
+                        /* ----------------------------------------------------------------
+                         * ---------      HANDLE RANDOMME.API Pictures Response     -------
+                         * ----------------------------------------------------------------
+                         * --- Will get back 5 if an argument is not provided
+                        */
+                        function sendRandomPhotosResponse(response) {
+                            return response.data;
+                        }
+
+                        function sendCatchRandomPhotosResponse(response) {
+                            return $q.reject('Error: ' + response.status);
+                        }
+
+
+
+
+
+                        /* ----------------------------------------------------------------
+                         * ---------      HANDLE People API Responses               -------
+                         * ----------------------------------------------------------------
+                         * ---
+                        */
                         function sendResponseData(response) {
                             //add response to the cache
                             //less trips to the server
@@ -82,15 +139,21 @@
 
                             if (peopleCollectionFromCache) {
                                 // --- Update the cached collection
+                                $log.debug('adding person to the cached array');
                                 peopleCollectionFromCache.push(response.data);
                                 dataCache.put('peopleCollection', peopleCollectionFromCache);
                             }
 
                             switch (response.config.method) {
                                 case 'GET':
+                                    if (peopleCollectionFromCache) {
+                                        $log.degub('returning cached object');
+                                        return peopleCollectionFromCache;
+                                    }
                                     return response.data;
                                     break;
                                 case 'POST':
+
                                     //TODO: Make sure response is what we need : Should be a person object
                                     return { collection: peopleCollectionFromCache, personSaved: response.data }
                                     break;

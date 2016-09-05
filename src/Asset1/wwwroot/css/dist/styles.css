@@ -18,8 +18,47 @@ body {
 }
 .headshot {
   max-width: 50px;
-  border: 1px solid #222;
+  border: 1px solid #353740;
   padding: 3px;
+}
+.panel .list-group a {
+  position: relative;
+  padding-left: 72px;
+}
+.panel .list-group a .image_placeholder {
+  height: 72px;
+  width: 72px;
+  background-image: url(../../img/man.png);
+  background-position-x: 0;
+  background-size: 72px;
+}
+.panel .list-group .select-icon,
+.panel .list-group .pre-select-icon {
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  color: gray;
+  visibility: hidden;
+}
+.panel .list-group .pre-select-icon {
+  visibility: visible;
+}
+.panel .list-group a.active .select-icon {
+  color: #F0F0F0;
+  visibility: visible;
+}
+.panel .list-group a.active .pre-select-icon {
+  visibility: hidden;
+}
+.panel .list-group a:hover:not(.active) {
+  background-color: #eaeaea;
+}
+.panel .list-group a:hover:not(.active) .select-icon {
+  visibility: visible;
+  color: green;
+}
+.panel .list-group a:hover:not(.active) .pre-select-icon {
+  visibility: hidden;
 }
 .links a:link,
 .links a:visited,
@@ -45,7 +84,7 @@ body {
   font-weight: bold;
 }
 .menu li a {
-  color: #eee;
+  color: #eaeaea;
 }
 #sidebar {
   color: #eee;
@@ -131,6 +170,9 @@ section#people_list article li i {
 dt,
 dd {
   display: inline;
+}
+.ng-invalid.ng-touched {
+  box-shadow: 0px 0px 5px 2px red;
 }
 .card {
   border: 1px solid #aaa;

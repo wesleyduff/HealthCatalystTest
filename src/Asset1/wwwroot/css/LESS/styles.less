@@ -13,6 +13,12 @@
 @dark-bg : #353740;
 @light-bg: #F0F0F0;
 @light-list: #b3d4fc;
+@required-color: yellow;
+@invalid-color: red;
+@list-hover-color:#eaeaea;
+@disabled-color:gray;
+@selected-color:green;
+@selected-active-color: #F0F0F0;
 
 /* Angular Classes */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -28,8 +34,59 @@ body {
 
 .headshot {
   max-width: 50px;
-  border: 1px solid #222;
+  border: 1px solid @dark-bg;
   padding: 3px;
+}
+
+.panel{
+    .list-group {
+
+        a{
+            position:relative;
+            padding-left: 72px;
+
+            .image_placeholder {
+                height: 72px;
+                width: 72px;
+                background-image: url(../../img/man.png);
+                background-position-x: 0;
+                background-size: 72px;
+            }
+          
+        }
+
+        .select-icon, .pre-select-icon {
+            position:absolute;
+            top:2px;
+            left:5px;
+            color:@disabled-color;
+            visibility:hidden;
+        }
+        .pre-select-icon {
+            visibility:visible;
+        }
+    }
+    .list-group a.active {
+        .select-icon {
+            color:@selected-active-color;
+            visibility:visible;
+        }
+        .pre-select-icon {
+            visibility:hidden;
+        }
+    }
+    .list-group a:hover:not(.active) {
+        background-color:@list-hover-color;
+
+        .select-icon {
+           visibility:visible;
+           color:@selected-color;
+        }
+
+        .pre-select-icon {
+            visibility:hidden;
+        }
+    }
 }
 
 .links {
@@ -59,7 +116,7 @@ body {
         }
     
         a {
-          color: #eee;
+          color: @list-hover-color;
         }
     }
 }
@@ -165,6 +222,14 @@ section {
 
 dt, dd {
     display:inline;
+}
+
+.ng-invalid.ng-touched{
+   box-shadow:0px -0px 5px 2px @invalid-color;
+}
+
+.ng-touched {
+
 }
 
 .card {

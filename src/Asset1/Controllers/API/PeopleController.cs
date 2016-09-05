@@ -40,16 +40,7 @@ namespace Asset1.Controllers.API
             } 
             catch(Exception ex)
             {
-                return Ok(
-                        JObject.FromObject(
-                            new
-                            {
-                                status = "Exception Thrown",
-                                result = false,
-                                message = ex.Message
-                            }
-                        )
-                    );
+                return BadRequest(ex.Message);
             }
         }
 
@@ -77,7 +68,7 @@ namespace Asset1.Controllers.API
                     else
                     {
 
-                        return Ok(
+                        return BadRequest(
                                     JObject.FromObject(new {
                                             status = "Bad Request",
                                             result = ModelState,//using this because it is for my debuging purposes only... Not for production
@@ -89,7 +80,7 @@ namespace Asset1.Controllers.API
                 catch (Exception ex)
                 {
 
-                    return Ok(JObject.FromObject(new {
+                    return BadRequest(JObject.FromObject(new {
                                         status = "Exception Thrown",
                                         result = ModelState,//using this because it is for my debuging purposes only... Not for production
                                         message = ex.Message
@@ -97,7 +88,7 @@ namespace Asset1.Controllers.API
                 }
             }
 
-            return Ok(
+            return BadRequest(
                 JObject.FromObject(new {
                         status = "Bad Data - Model State is faulty",
                         result = ModelState //using this because it is for my debuging purposes only... Not for production
