@@ -29,6 +29,17 @@
                          * API Calls
                          * -----------------
                          * Gather API Endpoints
+                         * Could use ngResource : $resource here, but I like to 
+                         * have more controll over my Calls to the server.
+                         * ------------------------------
+                         *          API METHODS 
+                         * ------------------------------
+                         * getAllPeople
+                         * <params></params>
+                         * ---
+                         * addPeople
+                         * <params>person</params>
+                         * -----------------------------
                          */
                         return {
                             //Get a JSON object : Array of people objects
@@ -47,15 +58,45 @@
                                 })
                                 .then(sendResponseData)
                                 .catch(sendCatchResponseData)
+                            },
+                            addPerson: function (person) {
+
+                                $log.debug('Adding Person : ' + person.firstName + ' ' + person.lastName + ' to database');
+
+                                //make $http call
+                                return $http({
+                                    method: 'POST',
+                                    data: person,
+                                    url: API.uri.people()
+                                })
+                                .then(sendResponseData)
+                                .catch(sendCatchResponseData)
+                               
                             }
                         };
 
                         function sendResponseData(response) {
                             //add response to the cache
                             //less trips to the server
-                            dataCache.put('peopleCollection', response);
+                            var peopleCollectionFromCache = dataCache.get('peopleCollection');
 
-                            return response.data;
+                            if (peopleCollectionFromCache) {
+                                // --- Update the cached collection
+                                peopleCollectionFromCache.push(response.data);
+                                dataCache.put('peopleCollection', peopleCollectionFromCache);
+                            }
+
+                            switch (response.config.method) {
+                                case 'GET':
+                                    return response.data;
+                                    break;
+                                case 'POST':
+                                    //TODO: Make sure response is what we need : Should be a person object
+                                    return { collection: peopleCollectionFromCache, personSaved: response.data }
+                                    break;
+                            }
+
+                            
                         };
 
                         function sendCatchResponseData(response) {

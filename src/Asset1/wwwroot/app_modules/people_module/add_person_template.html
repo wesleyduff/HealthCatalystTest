@@ -1,0 +1,24 @@
+﻿<section id="manage_person">
+    <h1>Add Person</h1>
+
+    <form ng-submit="addPerson()" class="row">
+        <div class="col-xs-12" asp-validation-summary="ModelOnly"></div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label>First Name</label>
+                <input class="form-control" ng-model="person.firstName" />
+            </div>
+
+            <div class="form-group">
+                <label>First Name</label>
+                <input class="form-control" ng-model="person.lastName" />
+            </div>
+
+
+            <div>
+                <a asp-controller="People" asp-action="Manage" class="btn btn-default">Cancel</a>
+                <input class="btn btn-primary" type="submit" value="Save Person" />
+            </div>
+        </div>
+    </form>
+</section> 

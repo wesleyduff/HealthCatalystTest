@@ -67,7 +67,7 @@ section {
   position: relative;
   height: 100%;
 }
-section#people_list > div {
+section#people_list > header {
   padding: 15px 0 15px 20px;
   background: #b3d4fc;
   /* Old browsers */
@@ -80,7 +80,7 @@ section#people_list > div {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3d4fc', endColorstr='#b0d9f4', GradientType=1);
   /* IE6-9 */
 }
-section#people_list > div input {
+section#people_list > header input {
   padding-left: 10px;
   margin-left: 10px;
   border-radius: 5px;
@@ -89,17 +89,20 @@ section#people_list > div input {
 section#people_list header {
   margin-bottom: 31px;
 }
-section#people_list ul {
+section#people_list ul.nav {
+  margin-right: 10px;
+}
+section#people_list ul:not(.nav) {
   padding: 0;
   margin-top: 30px;
 }
-section#people_list ul li {
+section#people_list ul:not(.nav) li {
   background-color: #eeecea;
 }
-section#people_list ul li figure {
+section#people_list ul:not(.nav) li figure {
   text-align: center;
 }
-section#people_list ul li figure b {
+section#people_list ul:not(.nav) li figure b {
   display: block;
   font-size: 1.5em;
 }

@@ -29,6 +29,17 @@
                          * API Calls
                          * -----------------
                          * Gather API Endpoints
+                         * Could use ngResource : $resource here, but I like to 
+                         * have more controll over my Calls to the server.
+                         * ------------------------------
+                         *          API METHODS 
+                         * ------------------------------
+                         * getAllPeople
+                         * <params></params>
+                         * ---
+                         * addPeople
+                         * <params>person</params>
+                         * -----------------------------
                          */
                         return {
                             //Get a JSON object : Array of people objects
@@ -47,15 +58,45 @@
                                 })
                                 .then(sendResponseData)
                                 .catch(sendCatchResponseData)
+                            },
+                            addPerson: function (person) {
+
+                                $log.debug('Adding Person : ' + person.firstName + ' ' + person.lastName + ' to database');
+
+                                //make $http call
+                                return $http({
+                                    method: 'POST',
+                                    data: person,
+                                    url: API.uri.people()
+                                })
+                                .then(sendResponseData)
+                                .catch(sendCatchResponseData)
+                               
                             }
                         };
 
                         function sendResponseData(response) {
                             //add response to the cache
                             //less trips to the server
-                            dataCache.put('peopleCollection', response);
+                            var peopleCollectionFromCache = dataCache.get('peopleCollection');
 
-                            return response.data;
+                            if (peopleCollectionFromCache) {
+                                // --- Update the cached collection
+                                peopleCollectionFromCache.push(response.data);
+                                dataCache.put('peopleCollection', peopleCollectionFromCache);
+                            }
+
+                            switch (response.config.method) {
+                                case 'GET':
+                                    return response.data;
+                                    break;
+                                case 'POST':
+                                    //TODO: Make sure response is what we need : Should be a person object
+                                    return { collection: peopleCollectionFromCache, personSaved: response.data }
+                                    break;
+                            }
+
+                            
                         };
 
                         function sendCatchResponseData(response) {
@@ -131,8 +172,8 @@
                                 /* ---------------------------------------------------------- */
                                 /* -------------- SIMULATE 5 seconds of Slowness -------------*/
                                 /* ---------------------------------------------------------- */
+                                $log.debug('Simulating slowness for 5 seconds');
                                 peopleMethods.utils.simulateSlowness(function () {
-                                    $log.debug('Simulating slowness for 5 seconds');
 
                                     /* ---------------------------------------------------------- */
                                     /* -------------- Setup Scope Objects to bind to the UI -------------*/
@@ -142,7 +183,7 @@
                                     $scope.women = $filter('filterGender')(collection, "Female");
                                     //Turn OFF Loader
                                     peopleMethods.utils.ToggleLoader('off');
-                                }, 5000);
+                                }, 500);
 
                                 
 
@@ -196,41 +237,77 @@
                 '$scope',
                 '$peopleFactoryDataService',
                 '$log',
-                function ($scope, $peopleFactoryDataService, $log){
+                '$state',
+                '$timeout',
+                function ($scope, $peopleFactoryDataService, $log, $state, $timeout){
 
                     var peopleAddMethods = {
-                        getPeople: {
-                            success: function (collection) {
-
-                                $scope.people = collection;
-                                $scope.man = $filter('filterGender')(collection, "Male");
-                                $scope.women = $filter('filterGender')(collection, "Female");;
-
+                        addPeople: {
+                            success: function (response) {
+                                
+                                /* ---------------------------------------------------------- */
+                                /* -------------- HANDLE POST : SUCCESS RESPONSE -------------*/
+                                /* ---------------------------------------------------------- */
+                                
                             },
                             notification: function (notification) {
                                 $log.debug(notification);
                             },
                             complete: function (complete) {
 
-                                //turn off loader 
-                                //TODO :: Make Loader
+                                // --- Redirect the user back to the dashboard
+                                /* ---------------------------------------------------------- */
+                                /* -------------- SIMULATE 5 seconds of Slowness -------------*/
+                                /* ---------------------------------------------------------- */
+                                $log.debug('Simulating slowness for 5 seconds');
+                                peopleMethods.utils.simulateSlowness(function () {
+
+                                    //--Turn OFF Loader
+                                    peopleMethods.utils.ToggleLoader('off');
+
+                                    //-- redirect to dashboard
+                                    $state.go('dashboard');
+
+                                }, 5000);
                                 
                                 $log.debug(complete);
                             }
                         },
                         errorCallBack: function () {
+                            //Turn OFF Loader
+                            peopleMethods.utils.ToggleLoader('off');
                             $log.debug('xxx---xxx-- Error while calling getAllPeople');
+                        },
+                        utils: {
+                            ToggleLoader: function (val) {
+                                $scope.$emit('toggleLoader', val);
+                            },
+                            simulateSlowness: function (callback, secondsToWait) {
+                                $timeout(callback, secondsToWait);
+                            },
+                            showError: function (message) {
+                                //maybe put something on the UI to show a message to the user of what has happened.
+                                //for now we will just log out to the console
+                                $log.deug(message)
+                            }
                         }
                     }
+
+                    // Start the loader
+                    peopleAddMethods.utils.ToggleLoader('off');
 
 
                     /* -------------------------------------- */
                     /* ---------- MAIN init data ------------ */
                     /* -------------------------------------- */
-                    $peopleFactoryDataService.addPerson(person)
-                    .then(peopleMethods.getAllPeople.success, null, peopleMethods.getAllPeople.notification('Notify of : getAllPeople'))
-                    .catch(peopleMethods.errorCallBack)
-                    .finally(peopleMethods.getAllPeople.complete('Complete'));
+                    $scope.addPerson = function () {
+                        $peopleFactoryDataService.addPerson(this.person)
+                            .then(peopleMethods.getAllPeople.success, null, peopleMethods.getAllPeople.notification('Notify of : getAllPeople'))
+                            .catch(peopleMethods.errorCallBack)
+                            .finally(peopleMethods.getAllPeople.complete('Complete'));
+                    };
+
+
                 }
             ]
         }
@@ -246,6 +323,7 @@
         .filter('filterGender', APP.PeopleFilters().genderFilter)
         .filter('startsWithLetter', APP.PeopleFilters().startsWithLetter)
         .controller('MainController', APP.PeopleControllers().MainController)
+        .controller('PostController', APP.PeopleControllers().PostController)
         .factory('$peopleFactoryDataService', APP.PeopleServices().PeopleFactoryDataService);
 
     return module;

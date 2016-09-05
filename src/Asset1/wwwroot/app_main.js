@@ -44,7 +44,12 @@ define([
         });
 
         $stateProvider
-
+            /* --- Main View : 
+             * - Dashboard
+             * ---------------------
+             * --     LAZY LOADS
+             * -- | main.js, module_combined.js, template.html, add_person_template.html
+             */
           .state('dashboard',
             {
                 url: '/dashboard',
@@ -62,8 +67,25 @@ define([
                         });
                     }]
                 }
-            }
-          );
+            })
+            .state('addPeople',
+                {
+                    url: '/addPerson',
+                    templateUrl: 'app_modules/people_module/add_person_template.html',
+                    controller: 'PostController',
+                    resolve: {
+                        loadDeps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                files: [
+                                     './app_modules/people_module/main.js',
+                                    './app_modules/people_module/build/module_combined.js',
+                                    './app_modules/people_module/add_person_template.html'
+                                ]
+                            });
+                        }]
+                    }
+                }
+            )
     }])
 
     /* ------------------------------------------

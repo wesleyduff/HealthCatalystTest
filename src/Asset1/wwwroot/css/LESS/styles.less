@@ -94,7 +94,7 @@ section {
 
     &#people_list {
 
-        > div {
+        > header {
             padding: 15px 0 15px 20px;
             background: @light-list; /* Old browsers */
             background: -moz-linear-gradient(left, #b3d4fc 0%, #b0d9f4 100%); /* FF3.6-15 */
@@ -112,8 +112,10 @@ section {
         header {
             margin-bottom:31px;
         }
-
-        ul {
+        ul.nav {
+            margin-right: 10px;
+        }
+        ul:not(.nav) {
             padding: 0;
             margin-top:30px;
 
