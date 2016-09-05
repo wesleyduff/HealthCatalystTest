@@ -2,6 +2,7 @@
     baseUrl: "",
     paths: {
         'angular': 'lib/angular/angular',
+        'angularSpinners' : 'lib/angular-spinners/angular-spinners.min',
         'lodash': 'lib/lodash/lodash.min',
         'ui.router': 'lib/angular-ui-router/release/angular-ui-router.min',
         'oclazyload': 'lib/oclazyload/dist/ocLazyLoad',
@@ -16,6 +17,9 @@
         'angular': {
             exports: 'angular',
             deps: ['jquery']
+        },
+        'angularSpinners' : {
+            deps: ['angular']
         },
         'require' : {
             exports: 'require'

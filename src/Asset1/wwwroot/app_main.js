@@ -9,18 +9,18 @@ define([
   //angular deps
   'oclazyload',
   'ui.router',
-  'ui.bootstrap'
-
-
+  'ui.bootstrap',
 
   //application deps
+  'angularSpinners'
 ], function (require, angular, API) {
     require('serivice_config');
     var app = angular.module('app', [
       'ui.router',
       'ui.bootstrap',
       'oc.lazyLoad',
-      'configurables'
+      'configurables',
+      'angularSpinners'
     ]);
 
 
@@ -53,7 +53,7 @@ define([
                 resolve: {
                     loadDeps: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            serie : true,
+                            serie: true,
                             files: [
                                  './app_modules/people_module/main.js',
                                 './app_modules/people_module/build/module_combined.js',
@@ -62,9 +62,124 @@ define([
                         });
                     }]
                 }
-              }
+            }
           );
-    }]);
+    }])
+
+    /* ------------------------------------------
+     * ------------ ROOT CONTROLLER -------------
+     *  - Here you want to listen for $emit(ers) with $on
+     *  - and $broadcast events to sub controllers
+     * ------------------------------------------
+     * ------------------------------------------
+     */
+    .controller('RootController', ['$scope', function ($scope) {
+
+        //Pre Set Loader
+        $scope.showLoader = true;
+
+        /* -----------------------------
+         *  ------- Listeners ----------
+         * - $on 
+         */
+        $scope.$on('toggleLoader', function (event, _switch_) {
+            //use this $scope object to show or hide the modal-backdrop class
+            _switch_ === 'on' ? $scope.showLoader = true : $scope.showLoader = false;
+        });
+
+        /* -----------------------------
+         *  ------- Listeners ----------
+         * - $on 
+         */
+    }])
+
+    // Adding loading directive
+    .directive('loader', function (spinnerService) {
+        return {
+            restrict: 'E',
+            replace: true,
+            transclude: true,
+            scope: {
+                name: '@?',
+                group: '@?',
+                show: '=',
+                imgSrc: '@?',
+                register: '@?',
+                onLoaded: '&?',
+                onShow: '&?',
+                onHide: '&?'
+            },
+            template: [
+                ' <div ng-show="show" class="spinner">',
+                '   <div class="bounce1">',
+                '   </div>',
+                '   <div class="bounce2"></div>',
+                '   <div class="bounce3"></div>',
+                ' </div>',
+                '</div>'
+
+            ].join(''),
+            controller: function ($scope, spinnerService) {
+
+                // register should be true by default if not specified.
+                if (!$scope.hasOwnProperty('register')) {
+                    $scope.register = true;
+                } else {
+                    $scope.register = !!$scope.register;
+                }
+
+                // Declare a mini-API to hand off to our service so the 
+                // service doesn't have a direct reference to this
+                // directive's scope.
+                var api = {
+                    name: $scope.name,
+                    group: $scope.group,
+                    show: function () {
+                        $scope.show = true;
+                    },
+                    hide: function () {
+                        $scope.show = false;
+                    },
+                    toggle: function () {
+                        $scope.show = !$scope.show;
+                    }
+                };
+
+                // Register this spinner with the spinner service.
+                if ($scope.register === true) {
+                    spinnerService._register(api);
+                }
+
+                // If an onShow or onHide expression was provided,
+                // register a watcher that will fire the relevant
+                // expression when show's value changes.
+                if ($scope.onShow || $scope.onHide) {
+                    $scope.$watch('show', function (show) {
+                        if (show && $scope.onShow) {
+                            $scope.onShow({
+                                spinnerService: spinnerService,
+                                spinnerApi: api
+                            });
+                        } else if (!show && $scope.onHide) {
+                            $scope.onHide({
+                                spinnerService: spinnerService,
+                                spinnerApi: api
+                            });
+                        }
+                    });
+                }
+
+                // This spinner is good to go.
+                // Fire the onLoaded expression if provided.
+                if ($scope.onLoaded) {
+                    $scope.onLoaded({
+                        spinnerService: spinnerService,
+                        spinnerApi: api
+                    });
+                }
+            }
+        };
+    });
 
     return app;
 });

@@ -20,10 +20,12 @@
     <script src="~/lib/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
-<body>
+<body ng-controller="RootController" >
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+
+    <loader name="mySpinner" show="showLoader"></loader>
 
 
     <nav id="sidebar">
@@ -36,7 +38,7 @@
         </ul>
     </nav>
 
-    <section id="wrapper">
+    <section id="wrapper" ng-cloak>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <ul class="nav navbar-nav navbar-left">
@@ -61,15 +63,17 @@
                 </ul>
             </div>
         </nav>
-        <section id="main" class="container-fluid">
-            @RenderBody()
+        <section id="main" class="container-fluid" >
+                @RenderBody()
         </section>
         <footer id="footer" class="container-fluid">
             <div class="navbar navbar-inverse navbar-fixed-bottom">
-                <h4 class="text-center text-info">&copy; 2015 The World Ltd.</h4>
+                <h4 class="text-center text-info">&copy; 2016 Wes Duff.</h4>
             </div>
         </footer>
     </section>
+
+    <div class="modal-backdrop fade in" ng-if="showLoader"></div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
