@@ -27,51 +27,42 @@
 
     <loader name="mySpinner" show="showLoader"></loader>
 
+    <div class="row">
+        @Html.Partial("sidebar");
+        <nav id="sidebar" class="hidden-xs col-md-3">
+            <img src="~/img/wes_duff.jpg" alt="headshot" class="headshot" />
+            <span id="username">Wes Duff</span>
+            <div class="links row">
+                <a class="col-sm-4 col-md-12" target="_blank" href="https://www.linkedin.com/in/wesley-duff-34640bb">
+                    <img src="~/img/linkedIn.png" alt="Linkedin" /> <span>LinkedIn</span>
+                </a>
+                <a class="col-sm-4 col-md-12" target="_blank" href="https://github.com/wesleyduff">
+                    <img src="~/img/github.png" alt="github" /> <span>gitHub</span>
+                </a>
+                <a class="col-sm-4 col-md-12" target="_blank" href="http://stackoverflow.com/users/376350/wes-duff">
+                    <img src="~/img/stackOverflow.jpg" alt="Stack Overflow" /> <span>stackOverflow</span>
+                </a>
 
-    <nav id="sidebar">
-        <img src="~/img/user1.jpg" alt="headshot" class="headshot" />
-        <span id="username">Sam Hastings</span>
-        <ul class="nav">
-            <li class="active"><a asp-controller="App" asp-action="Dashboard">Home</a></li>
-            <li><a asp-controller="People" asp-action="Manage">People</a></li>
-            <li><a asp-controller="Person" asp-action="Manage">Person</a></li>
-        </ul>
-    </nav>
-
-    <section id="wrapper" ng-cloak>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav navbar-left">
-                    <li>
-                        <button id="sidebarToggle" class="btn btn-primary">
-                            <i class="fa fa-angle-left"></i>
-                        </button>
-                    </li>
-                </ul>
-                <a asp-controller="App" asp-action="Index" class="navbar-brand">The World</a>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#" class="btn btn-sm btn-info">
-                            <i class="fa fa-save"></i> Save
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="btn btn-sm btn-info">
-                            <i class="fa fa-print"></i> Print
-                        </a>
-                    </li>
-                </ul>
             </div>
         </nav>
-        <section id="main" class="container-fluid" >
+
+        <section id="wrapper" ng-cloak class="col-md-9">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <a asp-controller="App" asp-action="Index" class="navbar-brand">Wesley Duff's Health Catalyst Test</a>
+                </div>
+            </nav>
+            <section id="main" class="container-fluid">
                 @RenderBody()
+            </section>
+            <footer id="footer" class="container-fluid">
+                <div class="navbar navbar-inverse navbar-fixed-bottom">
+                    <h4 class="text-center text-info">&copy; 2016 Wes Duff.</h4>
+                </div>
+            </footer>
         </section>
-        <footer id="footer" class="container-fluid">
-            <div class="navbar navbar-inverse navbar-fixed-bottom">
-                <h4 class="text-center text-info">&copy; 2016 Wes Duff.</h4>
-            </div>
-        </footer>
-    </section>
+    </div>
+   
 
     <div class="modal-backdrop fade in" ng-if="showLoader"></div>
 

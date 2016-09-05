@@ -9,11 +9,19 @@
   transform: translateY(@translatePos);
 }
 
+/* --- VARIABLES */
+@dark-bg : #353740;
+@light-bg: #F0F0F0;
+@light-list: #b3d4fc;
+
 /* Angular Classes */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
 
+body {
+    background-color:@dark-bg;
+}
 #main {
     position:relative;
 }
@@ -23,6 +31,22 @@
   border: 1px solid #222;
   padding: 3px;
 }
+
+.links {
+
+    a:link, a:visited, a:hover, a:active {
+        font:900 1.2em 'tahoma';
+        color:@light-bg;
+    }
+
+    img {
+        height: 42px;
+        border: 3px dotted white;
+        border-radius: 50px;
+        padding: 4px;
+        margin: 33px 19px;
+    }
+} 
 
 .menu {
   font-size: 12px;
@@ -41,18 +65,8 @@
 }
 
 #sidebar {
-  background: #2a2c36;
   color: #eee;
-  position: fixed;
-  height: 100%;
-  width: 250px;
-  overflow: hidden;
-  left: 0;
-  margin: 0;
-  -moz-transition: left ease .25s;
-  -o-transition: left ease .25s;
-  -webkit-transition: left ease .25s;
-  transition: left ease .25s;
+  height:100%;
 
 
   .hide-sidebar {
@@ -62,23 +76,14 @@
     -webkit-transition: left ease .25s;
     transition: left ease .25s;
   }
+
+  img {
+
+  }
 }
 
 #wrapper {
-  margin: 0 0 0 250px;
-  -moz-transition: margin-left ease .25s;
-  -o-transition: margin-left ease .25s;
-  -webkit-transition: margin-left ease .25s;
-  transition: margin-left ease .25s;
-
-
-  .hide-sidebar {
-    margin-left: 0;
-    -moz-transition: margin-left ease .25s;
-    -o-transition: margin-left ease .25s;
-    -webkit-transition: margin-left ease .25s;
-    transition: margin-left ease .25s;
-  }
+    background-color:@light-bg;
 }
 
 /* --- StYLES ---- */
@@ -91,7 +96,7 @@ section {
 
         > div {
             padding: 15px 0 15px 20px;
-            background: #b3d4fc; /* Old browsers */
+            background: @light-list; /* Old browsers */
             background: -moz-linear-gradient(left, #b3d4fc 0%, #b0d9f4 100%); /* FF3.6-15 */
             background: -webkit-linear-gradient(left, #b3d4fc 0%,#b0d9f4 100%); /* Chrome10-25,Safari5.1-6 */
             background: linear-gradient(to right, #b3d4fc 0%,#b0d9f4 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -175,8 +180,9 @@ dt, dd {
         border-radius: 60px;
         position: absolute;
         top: -50px;
-        left: 39%;
+        left: 50%;
         background-color: white;
+        margin-left: -50px;
     }
 
     strong {
@@ -259,8 +265,11 @@ dt, dd {
 
 
 /* ---- Media Queries --- */
+@media(min-width: 20em) {
+      figcaption {
+        font-size:2em;
+    }
 
-@media(min-width:34em){
     section#people_list {
 
         article {
@@ -280,7 +289,12 @@ dt, dd {
         }
     }
 }
+@media(min-width:34em){
+
+    
+}
 @media(min-width:48em){
+ 
    section#people_list {
 
         article {
@@ -301,6 +315,11 @@ dt, dd {
     }
 }
 @media(min-width:62em){
+
+     figcaption {
+        font-size:1em;
+    }
+
     section#people_list {
 
         article {
@@ -345,7 +364,9 @@ dt, dd {
     }
 }
 @media(min-width:75em){
- section#people_list {
+   
+
+    section#people_list {
 
         article {
 
