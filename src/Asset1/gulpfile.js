@@ -29,9 +29,10 @@ gulp.task('TDD', function (done) {
 
     new server({
         configFile: __dirname + '/karma.conf.js',
-        singleRun: false
-    }, done).start();
-});
+        singleRun: false,
+        debug: true
+    }, done).start(); 
+}); 
 
 gulp.task('less', function () {
     console.log(path.join(__dirname, 'less', 'includes'));

@@ -263,15 +263,17 @@
                                 /* ---------------------------------------------------------- */
                                 /* -------------- SIMULATE 5 seconds of Slowness -------------*/
                                 /* ---------------------------------------------------------- */
+                                $scope.people = collection;
+                                $scope.man = $filter('filterGender')(collection, "Male");
+                                $scope.women = $filter('filterGender')(collection, "Female");
+
                                 $log.debug('Simulating slowness for 5 seconds');
                                 peopleMethods.utils.simulateSlowness(function () {
 
                                     /* ---------------------------------------------------------- */
                                     /* -------------- Setup Scope Objects to bind to the UI -------------*/
                                     /* ---------------------------------------------------------- */
-                                    $scope.people = collection;
-                                    $scope.man = $filter('filterGender')(collection, "Male");
-                                    $scope.women = $filter('filterGender')(collection, "Female");
+                                  
                                     //Turn OFF Loader
                                     peopleMethods.utils.ToggleLoader('off');
                                 }, 500);

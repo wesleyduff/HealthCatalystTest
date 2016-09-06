@@ -22,6 +22,7 @@ require.config({
         // External libraries
         'angular': '/base/wwwroot/lib/angular/angular',
         'angularMocks': '/base/wwwroot/lib/angular-mocks/angular-mocks',
+        'uiRouter' : '/base/wwwroot/lib/angular-ui-router/release/angular-ui-router',
 
         //'templates': '../templates'
         'people': '/base/wwwroot/app_modules'
@@ -30,6 +31,7 @@ require.config({
     shim: {
         'angular': { 'exports': 'angular' },
         'angularMocks': { deps: ['angular'], 'exports': 'angular.mock' },
+        'uiRouter' : {deps: ['angular'], 'exports' : 'uiRouter'},
 
 
         // Each template to be included in tests should be included below.

@@ -18,6 +18,7 @@ module.exports = function (config) {
         files: [
             //external deps for OC.LazyLoaded Files
              './node_modules/angular/angular.js',
+             './node_modules/angular=ui-router/release/angular-ui-router.js',
 
              //Deps for Oc.LazyLoad Testing : THAT REQUIRE ANGLUAR or someother framework to be loaded
             { pattern: 'wwwroot/app_modules/**/*.js', included: false },
@@ -32,6 +33,10 @@ module.exports = function (config) {
                   pattern: 'wwwroot/lib/angular-mocks/angular-mocks.js',
                   included: false
               },
+               {
+                   pattern: 'wwwroot/lib/angular-ui-router/release/angular-ui-router.js',
+                   included: false
+               },
                 {
                     pattern: 'wwwroot/lib/requrie/require.js',
                     included: false
