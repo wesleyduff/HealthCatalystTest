@@ -42,13 +42,13 @@ namespace Asset1.Domain.Repositories
         /// </summary>
         /// <param name="Search"></param>
         /// <returns>IEnumerable of person</returns>
-        public IEnumerable<Person> SearchPeople(string Search)
+        public IEnumerable<Person> SearchPeople(string search)
         {
             return _context.Person
                .Include(t => t.Interests)
                .Include(t => t.Address)
                .Include(t => t.Picture)
-               .Where(x => x.FullName.Contains(Search))
+               .Where(x => x.FullName.IndexOf(search, StringComparison.CurrentCultureIgnoreCase) != -1)
                .ToList();
         }
 

@@ -17,7 +17,7 @@
                             dataCache = $cacheFactory.get('PeoplesCacheData');
 
                         //check for cached people collection
-                        if (!dataCache) {
+                        if (dataCache === undefined) {
                             //create the cache object
                             $log.debug('Created cache');
                             dataCache = $cacheFactory('PeoplesCacheData');
@@ -78,7 +78,7 @@
                                     url: API.uri.people() + '/search',
                                     params:{"search": search}
                                 })
-                                .then(sendResponseData)
+                                .then(sendSearchResponseData)
                                 .catch(sendCatchResponseData)
                             },
                             addPerson: function (person, title, state) {
@@ -127,6 +127,14 @@
                             return $q.reject('Error: ' + response.status);
                         }
 
+                        /* --------------------------------------------------------------
+                         * --  HANDLE SEARCH RESPONSE DATA 
+                         * 
+                         */
+                        function sendSearchResponseData(response) {
+                            return response.data
+                        }
+
 
 
 
@@ -141,7 +149,7 @@
                             //less trips to the server
                             var peopleCollectionFromCache = dataCache.get('peopleCollection');
 
-                            if (peopleCollectionFromCache) {
+                            if (peopleCollectionFromCache && response.data.length === undefined) {
                                 // --- Update the cached collection
                                 $log.debug('adding person to the cached array');
                                 peopleCollectionFromCache.push(response.data);
@@ -153,6 +161,8 @@
                                     if (peopleCollectionFromCache) {
                                         $log.degub('returning cached object');
                                         return peopleCollectionFromCache;
+                                    } else {
+                                        dataCache.put('peopleCollection', response.data);
                                     }
                                     return response.data;
                                     break;

@@ -44,6 +44,24 @@ body {
   padding: 3px;
 }
 
+ #people_list ul.list-group {
+     min-height: 300px;
+
+      &.loading:before {
+        content: ".";
+        min-height: 100px;
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        opacity: .8;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+    }
+ }
+
 .panel{
     .list-group {
 
@@ -273,7 +291,7 @@ dt, dd {
 .modal-backdrop.in {
     opacity : .9; // make this darker
 }
-    .spinner {
+.spinner {
     margin: 100px auto 0;
     width: 70px;
     text-align: center;
@@ -282,7 +300,6 @@ dt, dd {
     left: 50%;
     top: 10%;
 }
-
 .spinner > div {
   width: 18px;
   height: 18px;

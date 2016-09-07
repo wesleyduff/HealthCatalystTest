@@ -24,8 +24,8 @@
             <li><a ui-sref="addPeople" class="btn btn-info">Add Person</a></li>
         </ul>
     </header>
-    <loader name="mySpinner" show="showSearchLoader"></loader>
-    <ul class="list-group col-xs-12">
+    <loader name="searchSpinner" show="showSearchLoader"></loader>
+    <ul class="list-group col-xs-12" ng-class="{'loading' : showSearchLoader}">
         <!--<li class="list-group-item" ng-repeat="person in people | startsWithLetter:letter ">-->
         <li class="list-group-item" ng-repeat="person in people">
             <article class="row">
@@ -70,6 +70,9 @@
                     </dd>
                 </dl>
             </article>
+        </li>
+        <li ng-show="showNoSearchResults" class="text-center list-group-item">
+            <strong>{{noSearchResults}}</strong>
         </li>
     </ul>
 </section>

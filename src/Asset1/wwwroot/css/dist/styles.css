@@ -25,6 +25,22 @@ body {
   border: 1px solid #353740;
   padding: 3px;
 }
+#people_list ul.list-group {
+  min-height: 300px;
+}
+#people_list ul.list-group.loading:before {
+  content: ".";
+  min-height: 100px;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: .8;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
 .panel .list-group a {
   position: relative;
   padding-left: 72px;

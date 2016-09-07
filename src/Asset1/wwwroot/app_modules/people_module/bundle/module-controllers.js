@@ -17,21 +17,22 @@
                     var peopleMethods = {
                         searchPeople: {
                             success: function(collection){
-                               
-                                //scroll to top of page
-                                document.body.scrollTop = document.documentElement.scrollTop = 0;
 
-                                $log.debug('Simulating slowness for 5 seconds');
+                                $log.debug('Simulating slowness for 3 seconds');
                                 peopleMethods.utils.simulateSlowness(function () {
 
                                     /* ---------------------------------------------------------- */
                                     /* -------------- Setup Scope Objects to bind to the UI -------------*/
                                     /* ---------------------------------------------------------- */
+                                    if (collection.length === 0) {
+                                        $scope.showNoSearchResults = true;
+                                        $scope.noSearchResults = "Sorry, your serach did not return any people.";
+                                    }
                                     $scope.people = collection;
 
                                     //Turn OFF search Loader
                                     peopleMethods.utils.ToggleSearchLoader('off');
-                                }, 5000);
+                                }, 3000);
                             },
                             complete: function (complete) {
                                 //do more here for completion
@@ -51,7 +52,7 @@
                                 //scroll to top of page
                                 document.body.scrollTop = document.documentElement.scrollTop = 0;
 
-                                $log.debug('Simulating slowness for 5 seconds');
+                                $log.debug('Simulating slowness for 1 seconds');
                                 peopleMethods.utils.simulateSlowness(function () {
 
                                     /* ---------------------------------------------------------- */
@@ -60,7 +61,7 @@
                                   
                                     //Turn OFF Loader
                                     peopleMethods.utils.ToggleLoader('off');
-                                }, 0);
+                                }, 1000);
 
                                 
 
@@ -86,8 +87,9 @@
                             ToggleLoader : function(val) {
                                 $scope.$emit('toggleLoader', val);
                             },
-                            ToggleSearchLoader: function(val){
-                                $scope.$emit('toggleSearchLoader', val);
+                            ToggleSearchLoader: function (_switch_) {
+                                // $scope.$emit('toggleSearchLoader', val);
+                                _switch_ === 'on' ? $scope.showSearchLoader = true : $scope.showSearchLoader = false;
                             },
                             simulateSlowness : function(callback, secondsToWait) {
                                 $timeout(callback, secondsToWait);
@@ -102,12 +104,27 @@
 
                     // Start the loader
                     peopleMethods.utils.ToggleLoader('on');
+
+                    //Hold the search Loader and set to false
+                    $scope.showSearchLoader = false;
+                    $scope.showNoSearchResults = false;
                    
                     $scope.search = function (search) {
-                        $peopleFactoryDataService.searchPeople(search)
-                        .then(peopleMethods.searchPeople.success)
-                        .catch(peopleMethods.errorCallBack)
-                        .finally(peopleMethods.searchPeople.complete('Searching for People Complete'));
+                        $scope.showSearchLoader = true;
+                        if (search === undefined || search === "") {
+                            $peopleFactoryDataService.getAllPeople()
+                               .then(peopleMethods.searchPeople.success)
+                               .catch(peopleMethods.errorCallBack)
+                               .finally(peopleMethods.searchPeople.complete('Searching for People Complete'));
+                        } else {
+                            //Doing this here instead of backend to use $cacheFactory
+                            //No need to busy the server
+                            $peopleFactoryDataService.searchPeople(search)
+                              .then(peopleMethods.searchPeople.success)
+                              .catch(peopleMethods.errorCallBack)
+                              .finally(peopleMethods.searchPeople.complete('Searching for People Complete'));
+                        }
+                      
                     };
                     
 
