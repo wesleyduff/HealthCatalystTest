@@ -43,22 +43,32 @@ body {
   border: 1px solid @dark-bg;
   padding: 3px;
 }
+#footer {
+    position:relative;
+    z-index: 10000;
+}
+ #people_list {
+    
+     .spinner {
+         z-index:1000;
+     }
+   
+    ul.list-group {
+        min-height: 300px;
 
- #people_list ul.list-group {
-     min-height: 300px;
-
-      &.loading:before {
-        content: ".";
-        min-height: 100px;
-        height: 100%;
-        width: 100%;
-        background-color: black;
-        opacity: .8;
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 100;
+        &.loading:before {
+            content: ".";
+            min-height: 100px;
+            height: 100%;
+            width: 100%;
+            background-color: black;
+            opacity: .8;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
     }
  }
 
@@ -365,6 +375,7 @@ dt, dd {
     }
 
     section#people_list {
+
 
         article {
      

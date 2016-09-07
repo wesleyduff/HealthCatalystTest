@@ -25,6 +25,13 @@ body {
   border: 1px solid #353740;
   padding: 3px;
 }
+#footer {
+  position: relative;
+  z-index: 10000;
+}
+#people_list .spinner {
+  z-index: 1000;
+}
 #people_list ul.list-group {
   min-height: 300px;
 }

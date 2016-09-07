@@ -9,8 +9,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Asset1.Business.Builders.PeopleBuilder;
 using System.Threading.Tasks;
-using AutoMapper;
-using Asset1.ViewModels;
 
 namespace Tests
 {
