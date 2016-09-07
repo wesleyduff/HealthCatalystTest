@@ -70,7 +70,8 @@ Front-end
 - Code First Entity Framework put in place as part of the ASP.NET MVC 6 / ASP.NET Core implementation.
   - Migrations managed by __dotnet__ command line appliation wtih build in __migration__ support
 - Unit Testing performed with XUNIT
-- 
+
+
 ## Front-end 
 
 - HTML5
