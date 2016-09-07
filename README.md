@@ -1,31 +1,22 @@
-# Health Catalyst Test for Wesley Duff
+ Health Catalyst Test for Wesley Duff
 
-## Tech Used
-
-Back-end
-* ASP.NET Core
-* Code First Entity FrameWork
-** dotnet ef - TOOLS used for migrations
-* C#
-
-Front-end
-* AngularJS 1.5.x
-* Gulp : for front-end build scripts and testing
-* Karma - Jasmin : for JavaScript Testing
-* HTML5 
-* CSS3
-* Bootstrap - Responsive Design
+# ASP.NET MVC 6 & ASP.NET CORE w/ Code First Entity Framework
 
 ## RUN - APP
 
 * git clone into directory
 * Open solution inside VS that has 
-** ASP.NET Core 
-** Service pack 3
+** __ASP.NET Core__
+** __Visual Studio 2015 Update 3 .NET Core 1.0.0__
+** __VS 2015 Tooling Preview 2__
+* After the app has fully loaded
+** Will require around 3 mintues or so. All of the dependencies need to be pulled down from the internet by __Bower__, __NPM__ and other package manager utilities.
+* Once the solutions have loaded you can run the app __CTRL + F5__
 
 ### Run C# Unit Tests
 * cd into __\test\Person.Tests__
-* type : dotnet test
+* type : dotnet test in the terminal
+* Or open the test explorer and run all tests
 
 ### Run JavaScritp Tests
 * In Visual Studio : 
