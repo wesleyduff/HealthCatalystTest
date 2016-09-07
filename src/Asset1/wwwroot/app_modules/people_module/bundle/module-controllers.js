@@ -521,7 +521,9 @@
                     $scope.chooseImage = function (event, pictureURI) {
 
                         //remove any active elements
-                        document.querySelector('#choose_image .active').classList.remove('active')
+                        if (document.querySelector('#choose_image .active')) {
+                            document.querySelector('#choose_image .active').classList.remove('active');
+                        }
 
                         //add active class
                         angular.element(event.currentTarget).addClass('active');
