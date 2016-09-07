@@ -67,7 +67,8 @@
 ## Front-end 
 
 - HTML5
-- CSS3
+- CSS3 | Using LESS | Gulp to Build
+- Gulp to build | combine files for LazyLoading Angular Modules
 - Angular 1.5.x
 - Angular UI Router
 - OC.LazyLoad for loading modules only when needed
