@@ -73,7 +73,7 @@ Health Catalyst Test for Wesley Duff
 - RequireJS used for modular JavaScript dependencies
 - RazorView for loading the Main Page
 - ViewModels created for Controller implementation into the View
-- __Composer__, __Builder__, __Service__, __Modules__ (in requireJS and Oc.LazyLoad), __Singleton__ patterns used.
+- __Composer__, __Builder__, __Service__, __Modules__ (in requireJS and Oc.LazyLoad), __Singleton__ patterns used
 - __Testing JavaScript__
   - Gulp script to run TDD and one off Tests within Visual Studio
   - Karam, Jasmin, requireJS used for the test runner, testing software and module loading
