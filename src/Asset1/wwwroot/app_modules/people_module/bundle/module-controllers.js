@@ -25,6 +25,9 @@
                                 $scope.man = $filter('filterGender')(collection, "Male");
                                 $scope.women = $filter('filterGender')(collection, "Female");
 
+                                //scroll to top of page
+                                document.body.scrollTop = document.documentElement.scrollTop = 0;
+
                                 $log.debug('Simulating slowness for 5 seconds');
                                 peopleMethods.utils.simulateSlowness(function () {
 
@@ -34,7 +37,7 @@
                                   
                                     //Turn OFF Loader
                                     peopleMethods.utils.ToggleLoader('off');
-                                }, 500);
+                                }, 5000);
 
                                 
 
@@ -111,6 +114,8 @@
                                 /* -------------- SIMULATE 5 seconds of Slowness -------------*/
                                 /* ---------------------------------------------------------- */
                                 $log.debug('Simulating slowness for 5 seconds');
+                                //scroll to top of page
+                                document.body.scrollTop = document.documentElement.scrollTop = 0;
                                 peopleAddMethods.utils.simulateSlowness(function () {
 
                                     //--Turn OFF Loader
