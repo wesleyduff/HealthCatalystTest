@@ -8,6 +8,9 @@ using Moq;
 using System.Collections;
 using System.Collections.Generic;
 using Asset1.Business.Builders.PeopleBuilder;
+using System.Threading.Tasks;
+using AutoMapper;
+using Asset1.ViewModels;
 
 namespace Tests
 {
@@ -33,9 +36,97 @@ namespace Tests
         }
 
         [Fact]
+        public void PersonRepoShouldReturnAnIEnumerableOfPersonObjects()
+        {
+            //arrange
+            var mock = new Mock<IPersonRepository>();
+            mock.Setup(framework => framework.GetPeople())
+                .Returns(new List<Person>() {
+                    new Person()
+                    {
+                        
+                    }
+                });
+
+            IPersonRepository repository = mock.Object;
+            IEnumerable<Person> people = repository.GetPeople();
+
+            var count = 0;
+            var enumerator = people.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                count++;
+            }
+
+            //act
+            int result = 1;
+
+            //assert
+            Assert.Equal(result, count);
+        }
+
+        [Fact]
+        public void PersonRepoShouldBeAbleToAddAPerson()
+        {
+
+            //arrange
+            var person = new Person()
+            {
+                FirstName = "testiiiiiiiiiiiiiiiiiiiiii",
+                LastName = "test",
+                Address = null,
+                Age = 32,
+                Email = "test@test.com",
+                Gender = Gender.Female,
+                Interests = new List<Interests>() { },
+                Phone = "444-444-4444",
+                Picture = new Picture() { Large = "http://fake.png" }
+            };
+            var mock = new Mock<IPersonRepository>();
+            mock.Setup(framework => framework.AddPerson(person));
+            mock.Setup(framework => framework.SaveChangesAsync()).ReturnsAsync(
+                Task.Run(() =>
+                {
+                    return true;
+                }).GetAwaiter().GetResult());
+
+            IPersonRepository repository = mock.Object;
+            repository.AddPerson(person);
+
+
+            //act
+            var success = repository.SaveChangesAsync().GetAwaiter().GetResult();
+
+            //assert
+            Assert.True(success);
+        }
+
+
+        [Fact]
         public void PeopleBuilderShouldReturnOnePerson()
         {
-            //arrang
+
+
+            /* ---------------
+             * MOCK the repo
+             * ---------------
+             */
+            var mockRepo = new Mock<IPersonRepository>();
+            mockRepo.Setup(framework => framework.GetPeople())
+                .Returns(new List<Person>() {
+                    new Person()
+                    {
+                        FirstName = "Tester"
+                    }
+                });
+            IPersonRepository mockedRepo = mockRepo.Object;
+
+
+            /* ---------------
+             * MOCK the Builder
+             * ---------------
+             */
             var list = new List<Person>() {
                     new Person()
                     {
@@ -48,10 +139,27 @@ namespace Tests
                         Picture = null
                     }
             };
-            var mock = new Mock<IPeopleBuilder>();
-            mock.Setup(framework => framework.BuildPeople())
+            var mockBuilder = new Mock<IPeopleBuilder>();
+            mockBuilder.Setup(framework => framework.BuildPeople())
                 .Returns(list);
-            IPeopleBuilder builder = mock.Object;
+            IPeopleBuilder mockedbuilder = mockBuilder.Object;
+
+
+            /* ---------------
+             * MOCK the Service Client
+             * ---------------
+             */
+            var mockService = new Mock<IPeopleServiceClient>();
+            mockService.Setup(framework => framework.GetPeople())
+                .Returns(list);
+            IPeopleServiceClient mockedService = mockService.Object;
+
+
+            //Build necessary structure
+            IPeopleServiceClient serviceClient = new PeopleServiceClient(mockedRepo);
+            IPeopleBuilder builder = new PeopleBuilder(mockedService) { };
+
+
             IEnumerable<Person> people = builder.BuildPeople();
 
             //act
@@ -61,5 +169,81 @@ namespace Tests
             //assert
             Assert.True(result);
         }
+
+        [Fact]
+        public void PeopleDirectorShouldReturnAListOfOne()
+        {
+            //arrange
+           
+            /* ---------------
+             * MOCK the repo
+             * ---------------
+             */
+            var mockRepo = new Mock<IPersonRepository>();
+            mockRepo.Setup(framework => framework.GetPeople())
+                .Returns(new List<Person>() {
+                    new Person()
+                    {
+                        FirstName = "Tester"
+                    }
+                });
+            IPersonRepository mockedRepo = mockRepo.Object;
+
+
+            /* ---------------
+             * MOCK the Builder
+             * ---------------
+             */
+            var list = new List<Person>() {
+                    new Person()
+                    {
+                        FirstName = "Fake",
+                        LastName = "Fake N",
+                        Email = "example@example.com",
+                        Gender = Gender.Male,
+                        Address = null,
+                        Phone = "434-333-3333",
+                        Picture = null
+                    }
+            };
+            var mockBuilder = new Mock<IPeopleBuilder>();
+            mockBuilder.Setup(framework => framework.BuildPeople())
+                .Returns(list);
+            IPeopleBuilder mockedbuilder = mockBuilder.Object;
+
+
+            /* ---------------
+             * MOCK the Service Client
+             * ---------------
+             */
+            var mockService = new Mock<IPeopleServiceClient>();
+            mockService.Setup(framework => framework.GetPeople())
+                .Returns(list);
+            IPeopleServiceClient mockedService = mockService.Object;
+
+
+            //Build necessary structure
+            IPeopleServiceClient serviceClient = new PeopleServiceClient(mockedRepo);
+            IPeopleBuilder builder = new PeopleBuilder(mockedService) { };
+            IPeopleDirector director = new PeopleDirector(mockedRepo, builder, serviceClient) { };
+
+            //get the people
+            IEnumerable<Person> people = director.BuildPeople();
+
+            var count = 0;
+            var enumerator = people.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                count++;
+            }
+
+            //act
+            int result = 1;
+
+            //assert
+            Assert.Equal(result, count);
+        }
+        
     }
 }

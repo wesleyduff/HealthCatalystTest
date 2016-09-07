@@ -302,6 +302,7 @@
 
                     $scope.photos = [];
                     $scope.person = {};
+                    $scope.age = 25;
 
                     var peopleAddMethods = {
                         addPeople: {

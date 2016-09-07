@@ -10,6 +10,10 @@
 .x-ng-cloak {
   display: none !important;
 }
+sup {
+  color: red;
+  font-weight: bold;
+}
 body {
   background-color: #353740;
 }

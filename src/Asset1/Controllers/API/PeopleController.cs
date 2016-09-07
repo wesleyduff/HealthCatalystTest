@@ -1,5 +1,4 @@
 ﻿using Asset1.Business.Directors.PeopleDirector;
-using Asset1.Composers.People;
 using Asset1.Domain.Entities;
 using Asset1.PlatformClient.PeopleClient;
 using Asset1.ViewModels;

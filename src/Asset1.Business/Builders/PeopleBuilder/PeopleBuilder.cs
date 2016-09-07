@@ -9,19 +9,28 @@ using System.Threading.Tasks;
 
 namespace Asset1.Business.Builders.PeopleBuilder
 {
+    /// <summary>
+    /// Builder is responsible to build the IEnumerable of People
+    /// </summary>
     public class PeopleBuilder : IPeopleBuilder
     {
         private IPeopleServiceClient _client;
-        private IPersonRepository _repository;
 
+        /// <summary>
+        /// People Builder builds the people list. 
+        /// The Director has requested a build
+        /// </summary>
+        /// <param name="client"></param>
         public PeopleBuilder(
-            IPersonRepository repository,
             IPeopleServiceClient client)
         {
-            _repository = repository;
             _client = client;
         }
 
+        /// <summary>
+        /// Method that handles the call to the client for the data;
+        /// </summary>
+        /// <returs>IEnumerable of Person</returns>
         public IEnumerable<Person> BuildPeople()
         {
             return _client.GetPeople();

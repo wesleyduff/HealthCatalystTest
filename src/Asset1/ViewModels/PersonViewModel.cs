@@ -7,6 +7,9 @@ using System.Text;
 
 namespace Asset1.ViewModels
 {
+    /// <summary>
+    /// Person View Model to accept data from the front-end via post and mapping data from the database
+    /// </summary>
     public class PersonViewModel
     {
         public int Id { get; set; }
@@ -39,6 +42,7 @@ namespace Asset1.ViewModels
         }
         
         public Location Address { get; set; }
+        [Required]
         public int Age { get; set; }
         [Required]
         [EmailAddress]

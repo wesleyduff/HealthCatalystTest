@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Asset1.Domain.Entities;
 using Asset1.Business.Directors.PeopleDirector;
-using Asset1.Composers.People;
 using Asset1.Domain.Seed;
 using Asset1.Domain.Repositories;
 using Newtonsoft.Json.Serialization;
@@ -88,7 +87,6 @@ namespace Asset1.Web
 
             //Do Dev stuff here: EXAMPLE - Mock Services
             services.AddScoped<IPeopleDirector, PeopleDirector>();
-            services.AddScoped<IPeopleComposer, PeopleComposer>();
             services.AddScoped<IPeopleBuilder, PeopleBuilder>();
             services.AddSingleton<IPeopleServiceClient, PeopleServiceClient>();
 

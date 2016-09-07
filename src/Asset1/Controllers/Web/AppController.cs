@@ -6,7 +6,10 @@ namespace Asset1.Web.Controllers.Web
 {
     public class AppController : Controller
     {
-        // GET: /<controller>/
+        /// <summary>
+        /// Main view when app loads
+        /// </summary>
+        /// <returns>Dashboard.cshtml Razor View</returns>
         public IActionResult Dashboard()
         {
             return View();

@@ -14,12 +14,12 @@
                 </div>
 
                 <div class="form-group col-xs-8 col-sm-9 col-md-10">
-                    <label>First Name</label>
+                    <label><sup>*</sup>First Name</label>
                     <input pattern=".{2,50}" title="2 minimum 50 maximum" required class="form-control" ng-model="person.firstName" />
                 </div>
 
                 <div class="form-group col-xs-12">
-                    <label>Last Name</label>
+                    <label><sup>*</sup>Last Name</label>
                     <input pattern=".{2,50}" title="2 minimum 50 maximum" required class="form-control" ng-model="person.lastName" />
                 </div>
 
@@ -47,8 +47,8 @@
                 </div>
 
                 <div class="form-group col-xs-12">
-                    <label>Email</label>
-                    <input type="email" class="form-control" ng-model="person.email" />
+                    <label><sup>*</sup>Email</label>
+                    <input required type="email" class="form-control" ng-model="person.email" />
                 </div>
 
                 <div class="form-group col-xs-12">
@@ -57,8 +57,8 @@
                 </div>
 
                 <div class="form-group col-xs-12 col-md-4">
-                    <lable>Age</lable>
-                    <input class="form-control" type="number" step="1" min="10" max="110" value="10" ng-model="person.age"/>
+                    <lable><sup>*</sup>Age</lable>
+                    <input required class="form-control" type="number" step="1" min="10" max="110" value="10" ng-model="person.age"/>
                 </div>
 
                 <div class="form-group col-xs-12 col-md-8">
