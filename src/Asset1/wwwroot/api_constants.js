@@ -1,7 +1,7 @@
 ﻿define(function () {
     'use strict';
 
-    var BASE = "http://localhost:51277/api"; //TODO Set Base
+    var BASE = "/api"; //TODO Set Base
     var RAOMEME = "http://api.randomuser.me"
     var API = {
             uri : {

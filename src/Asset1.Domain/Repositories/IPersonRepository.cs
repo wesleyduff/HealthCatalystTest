@@ -13,5 +13,7 @@ namespace Asset1.Domain.Repositories
         Task<bool> SaveChangesAsync();
 
         Person GetPersonById(int Id);
+
+        IEnumerable<Person> SearchPeople(string Search);
     }
 }

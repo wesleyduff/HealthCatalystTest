@@ -15,6 +15,29 @@
                     /* ---------- RESPONSE Methods ---------- */
                     /* -------------------------------------- */
                     var peopleMethods = {
+                        searchPeople: {
+                            success: function(collection){
+                               
+                                //scroll to top of page
+                                document.body.scrollTop = document.documentElement.scrollTop = 0;
+
+                                $log.debug('Simulating slowness for 5 seconds');
+                                peopleMethods.utils.simulateSlowness(function () {
+
+                                    /* ---------------------------------------------------------- */
+                                    /* -------------- Setup Scope Objects to bind to the UI -------------*/
+                                    /* ---------------------------------------------------------- */
+                                    $scope.people = collection;
+
+                                    //Turn OFF search Loader
+                                    peopleMethods.utils.ToggleSearchLoader('off');
+                                }, 5000);
+                            },
+                            complete: function (complete) {
+                                //do more here for completion
+                                $log.debug(complete);
+                            }
+                        },
                         getAllPeople: {
                             success: function (collection) {
 
@@ -37,7 +60,7 @@
                                   
                                     //Turn OFF Loader
                                     peopleMethods.utils.ToggleLoader('off');
-                                }, 5000);
+                                }, 0);
 
                                 
 
@@ -63,6 +86,9 @@
                             ToggleLoader : function(val) {
                                 $scope.$emit('toggleLoader', val);
                             },
+                            ToggleSearchLoader: function(val){
+                                $scope.$emit('toggleSearchLoader', val);
+                            },
                             simulateSlowness : function(callback, secondsToWait) {
                                 $timeout(callback, secondsToWait);
                             },
@@ -77,6 +103,13 @@
                     // Start the loader
                     peopleMethods.utils.ToggleLoader('on');
                    
+                    $scope.search = function (search) {
+                        $peopleFactoryDataService.searchPeople(search)
+                        .then(peopleMethods.searchPeople.success)
+                        .catch(peopleMethods.errorCallBack)
+                        .finally(peopleMethods.searchPeople.complete('Searching for People Complete'));
+                    };
+                    
 
                     /* -------------------------------------- */
                     /* ---------- MAIN init data ------------ */
@@ -124,7 +157,7 @@
                                     //-- redirect to dashboard
                                     $state.go('dashboard');
 
-                                }, 5000);
+                                }, 100);
 
                             },
                             notification: function (notification) {

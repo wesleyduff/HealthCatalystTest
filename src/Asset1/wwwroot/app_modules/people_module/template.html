@@ -19,12 +19,15 @@
     <header class="col-xs-12">
         <i class="fa fa-search" aria-hidden="true"></i>
         <input class="search" ng-model="letter" placeholder="Search People" />
+        <button ng-click="search(letter)" class="btn btn-primary"><i class="fa fa-2x fa-chevron-circle-right"></i></button>
         <ul class="nav navbar-nav navbar-right">
             <li><a ui-sref="addPeople" class="btn btn-info">Add Person</a></li>
         </ul>
     </header>
+    <loader name="mySpinner" show="showSearchLoader"></loader>
     <ul class="list-group col-xs-12">
-        <li class="list-group-item" ng-repeat="person in people | startsWithLetter:letter ">
+        <!--<li class="list-group-item" ng-repeat="person in people | startsWithLetter:letter ">-->
+        <li class="list-group-item" ng-repeat="person in people">
             <article class="row">
                 <header class="col-xs-12 col-md-3">
                     <figure>

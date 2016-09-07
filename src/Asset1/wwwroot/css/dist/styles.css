@@ -129,15 +129,11 @@ section#people_list > header input {
   border-radius: 5px;
   box-sizing: border-box;
 }
-section#people_list header {
-  margin-bottom: 31px;
-}
 section#people_list ul.nav {
   margin-right: 10px;
 }
 section#people_list ul:not(.nav) {
   padding: 0;
-  margin-top: 30px;
 }
 section#people_list ul:not(.nav) li {
   background-color: #eeecea;

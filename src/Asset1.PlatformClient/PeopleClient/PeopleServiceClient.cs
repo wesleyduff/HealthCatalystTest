@@ -23,11 +23,30 @@ namespace Asset1.PlatformClient.PeopleClient
             _repository.AddPerson(person);
         }
 
+        /// <summary>
+        /// Get People
+        /// </summary>
+        /// <returns>IEnumerable of Person</returns>
         public IEnumerable<Person> GetPeople()
         {
             return _repository.GetPeople();
         }
 
+        /// <summary>
+        /// Search people by string
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns>IEnumerable of person</returns>
+        public IEnumerable<Person> SearchPeople(string search)
+        {
+            return _repository.SearchPeople(search);
+        }
+
+        /// <summary>
+        /// Get Person by Id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Person</returns>
         public Person GetPersonById(int Id)
         {
             try
@@ -39,7 +58,10 @@ namespace Asset1.PlatformClient.PeopleClient
                 return null;
             }
         }
-
+        /// <summary>
+        /// Save changes to the DB Async
+        /// </summary>
+        /// <returns>async Task of bool</returns>
         public async Task<bool> SaveChangesAsync()
         {
             return await _repository.SaveChangesAsync();

@@ -23,6 +23,10 @@ namespace Asset1.Domain.Repositories
             _logger = logger;
         }
         
+        /// <summary>
+        /// Get an IEnumerable of Person
+        /// </summary>
+        /// <returns>IEnumerable of Person</returns>
         public IEnumerable<Person> GetPeople()
         {
             _logger.LogInformation("Getting All People From The DataBase");
@@ -33,16 +37,46 @@ namespace Asset1.Domain.Repositories
                 .ToList();
         }
 
+        /// <summary>
+        /// Search People by string
+        /// </summary>
+        /// <param name="Search"></param>
+        /// <returns>IEnumerable of person</returns>
+        public IEnumerable<Person> SearchPeople(string Search)
+        {
+            return _context.Person
+               .Include(t => t.Interests)
+               .Include(t => t.Address)
+               .Include(t => t.Picture)
+               .Where(x => x.FullName.Contains(Search))
+               .ToList();
+        }
+
+
+        /// <summary>
+        /// Add a person to the DB
+        /// </summary>
+        /// <param name="person"></param>
         public void AddPerson(Person person)
         {
             _context.Add(person);
         }
 
+
+        /// <summary>
+        /// Save changes to the DB
+        /// </summary>
+        /// <returns>Async Task of bool</returns>
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync()) > 0;
         }
 
+        /// <summary>
+        /// Get person by id
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>person</returns>
         public Person GetPersonById(int Id)
         {
             return _context.Person.Where(t => t.Id == Id)

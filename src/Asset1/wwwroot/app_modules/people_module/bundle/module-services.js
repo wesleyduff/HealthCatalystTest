@@ -71,6 +71,16 @@
                                 .then(sendResponseData)
                                 .catch(sendCatchResponseData)
                             },
+                            searchPeople: function (search) {
+
+                                return $http({
+                                    method: 'GET',
+                                    url: API.uri.people() + '/search',
+                                    params:{"search": search}
+                                })
+                                .then(sendResponseData)
+                                .catch(sendCatchResponseData)
+                            },
                             addPerson: function (person, title, state) {
 
                                 $log.debug('Trying Adding Person : ' + person.FirstName + ' ' + person.lastName + ' to database');

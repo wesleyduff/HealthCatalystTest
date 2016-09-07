@@ -13,6 +13,8 @@ namespace Asset1.PlatformClient.PeopleClient
 
         void AddPerson(Person person);
 
+        IEnumerable<Person> SearchPeople(string search);
+
         Task<bool> SaveChangesAsync();
 
         Person GetPersonById(int Id);

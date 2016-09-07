@@ -120,6 +120,11 @@ define([
             _switch_ === 'on' ? $scope.showLoader = true : $scope.showLoader = false;
         });
 
+        $scope.$on('toggleSearchLoader', function (event, _switch_) {
+            //use this $scope object to show or hide the modal-backdrop class
+            _switch_ === 'on' ? $scope.showSearchLoader = true : $scope.showSearchLoader = false;
+        });
+
         /* -----------------------------
          *  ------- Listeners ----------
          * - $on 

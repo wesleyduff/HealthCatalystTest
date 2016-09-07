@@ -31,17 +31,35 @@ namespace Asset1.Controllers.API
         [HttpGet("")]
         public IActionResult Get()
         {
-            
+
             try
             {
                 //call context for people IEnumerable
                 return Ok(Mapper.Map<IEnumerable<PersonViewModel>>(_director.BuildPeople()));
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("search")]
+        public IActionResult Search([FromQuery]string search) {
+            try
+            {
+                return Ok(Mapper.Map<IEnumerable<PersonViewModel>>(_director.SearchPeople(search)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(JObject.FromObject(new
+                {
+                    status = "Bad Request",
+                    result = ModelState,//using this because it is for my debuging purposes only... Not for production
+                    message = "Failed to search people."
+                }));
+            }
+        }
+
 
         /// <summary>
         /// Add a new person to the list of people

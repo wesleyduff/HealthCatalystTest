@@ -48,8 +48,16 @@ namespace Asset1.Business.Directors.PeopleDirector
                 throw new Exception("There was a problem building people", ex);
             }
 
-
-
+        }
+        /// <summary>
+        /// Search People by string
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns>An IEnumerable of Person</returns>
+        public IEnumerable<Person> SearchPeople(string search)
+        {
+            //call the service
+           return _client.SearchPeople(search);
         }
 
         /// <summary>

@@ -34,6 +34,22 @@ namespace Asset1.Domain.Entities
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FullName
+        {
+            get
+            {
+                var returnString = new StringBuilder();
+                if (this.FirstName != null && this.LastName != null)
+                {
+                    returnString.Append(this.FirstName + ' ' + this.LastName);
+                }
+                else
+                {
+                    returnString.Append("Full Name Missing");
+                }
+                return returnString.ToString();
+            }
+        }
         public int Age { get; set; }
         public Location Address { get; set; }
         public string Email { get; set; }
