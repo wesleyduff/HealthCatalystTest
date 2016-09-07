@@ -1,10 +1,17 @@
 ﻿var APP = APP || {};
 define([
+  //external deps for application
   'require',
   'angular',
-  'api_constants',
-  'serivice_config',
 
+  //API endpoints
+  'api_constants',
+
+   //GO GO GADGET UTILITIES
+  'go_go_gadget',
+
+  //get access to our services to share the goods
+  'serivice_config',
 
   //angular deps
   'oclazyload',
@@ -13,7 +20,7 @@ define([
 
   //application deps
   'angularSpinners'
-], function (require, angular, API) {
+], function (require, angular, API, GO_GO_GADGET) {
     require('serivice_config');
     var app = angular.module('app', [
       'ui.router',
@@ -36,9 +43,13 @@ define([
         //set API Config
         $shareManagerProvider.API = API;
 
+        //set Go_GO_GADGET UTILITES
+        $shareManagerProvider.Go_GO_GADGET = GO_GO_GADGET;
+
         /* ----------- SET BASE ROUTE */
         $urlRouterProvider.otherwise('/dashboard');
 
+        //config OC LazyLoad for requireJS
         $ocLazyLoadProvider.config({
             asyncLoader: require
         });

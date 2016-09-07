@@ -13,6 +13,7 @@
                     '$q',
                     function ($shareManager, $log, $cacheFactory, $http, $q) {
                         var API = $shareManager.getAPI(),
+                            GO_GO_GADGET = $shareManager.get_GO_GO_GADGET(),
                             dataCache = $cacheFactory.get('PeoplesCacheData');
 
                         //check for cached people collection
@@ -70,60 +71,25 @@
                                 .then(sendResponseData)
                                 .catch(sendCatchResponseData)
                             },
-                            addPerson: function (person, titleOptions, stateOptions) {
+                            addPerson: function (person, title, state) {
 
                                 $log.debug('Trying Adding Person : ' + person.FirstName + ' ' + person.lastName + ' to database');
 
-                                person.title = titleOptions.selectedOption;
+                                /* Calling composer to build our personViewModel 
+                                 * -------------------------------------------
+                                 * ----  PARMS   --
+                                 * --------------------------------------------
+                                 * 
+                                    //  -- [ _person ] : Object
+                                    //  -- [ state ]: String   //  ---- EXAMPLE : TX
+                                    //  -- [ title ] : string  //  ---- EXAMPLE : Mr, Mrs, Miss
+                                 */
+                                var PersonViewModel = GO_GO_GADGET.Compose.PersonViewModel(person, state, title);
 
-                                //set gender
-                                switch (person.title) {
-                                    case 'Mr':
-                                        person.gender = "Male"
-                                        break;
-                                    default:
-                                        person.gender = "Female"
-                                        break;
-                                };
-
-                                //set selections
-                                if (!person.location) {
-                                    person.location = {};
-                                }
-                                person.location.state = stateOptions.selectedOption.abbreviation;
-                                person.title = titleOptions.selectedOption;
-
-                                //Match ViewModel before sending and Build : Only needed for the post
-                                //Would split this out to its own method if we were updating people too.
-                                var passData = {
-                                    FirstName: person.FirstName,
-                                    LastName: person.lastName,
-                                    Gender: person.gender,
-                                    Email: person.email,
-                                    Phone: person.phone,
-                                    Age: person.age,
-                                    Address: {
-                                        City: person.location.city,
-                                        State: person.location.state,
-                                        Street: person.location.street,
-                                        PostalCode: person.location.postalcode
-                                    },
-                                    Interests: (function () {
-                                        var returnArray = [];
-                                        var interests = person.interests.split(',');
-                                        for (var i = 0; i < interests.length; i++) {
-                                            returnArray.push({ Activity: interests[i] });
-                                        }
-                                        return returnArray;
-                                    })(),
-                                    Picture: {
-                                        Large: person.largePic
-                                    }
-                                };
                                 //make $http call
                                 return $http({
                                     method: 'POST',
-                                    data: JSON.stringify(passData),
+                                    data: JSON.stringify(PersonViewModel),
                                     url: API.uri.people(),
                                     headers: { 'Content-Type': 'application/json' }
                                 })
@@ -335,7 +301,7 @@
                 function ($scope, $peopleFactoryDataService, $log, $state, $timeout){
 
                     $scope.photos = [];
-                    var person = {};
+                    $scope.person = {};
 
                     var peopleAddMethods = {
                         addPeople: {
@@ -679,10 +645,21 @@
                     $scope.addPerson = function () {
                         peopleAddMethods.utils.ToggleLoader('on');
                         //add the picture to the person "this" object
-                        this.person.largePic = person.picture;
+                        var _person = angular.copy($scope.person)
+                        this.person.largePic = _person.picture; 
 
-                        //Add the person to the DB
-                        $peopleFactoryDataService.addPerson(this.person, $scope.titleOptions, $scope.stateOptions)
+                        
+                        /* Calling addPerson on the module-service 
+                        * [$peopleFactoryDataService] | addPerson  : to add the person to the DB
+                        * -------------------------------------------
+                        * ----  PARMS   --
+                        * --------------------------------------------
+                        * 
+                            //  -- [ _person ] : Object
+                            //  -- [ state ]: String   //  ---- EXAMPLE : TX
+                            //  -- [ title ] : string  //  ---- EXAMPLE : Mr, Mrs, Miss
+                        */
+                        $peopleFactoryDataService.addPerson(this.person, $scope.titleOptions.selectedOption, $scope.stateOptions.selectedOption.abbreviation)
                             .then(peopleAddMethods.addPeople.success, null, peopleAddMethods.addPeople.notification('Notify of : getAllPeople'))
                             .catch(peopleAddMethods.errorCallBack)
                             .finally(peopleAddMethods.addPeople.complete('Complete'));
@@ -696,14 +673,14 @@
                     $scope.chooseImage = function (event, pictureURI) {
 
                         //remove any active elements
-                        jQuery('.panel .active').removeClass('active');
+                        angular.element(event.currentTarget).removeClass('active');
 
                         //add active class
                         angular.element(event.currentTarget).addClass('active');
 
                         event.preventDefault();
 
-                        person.picture = pictureURI;
+                        $scope.person.picture = pictureURI;
                     }
 
                 }

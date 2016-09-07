@@ -22,7 +22,9 @@ require.config({
         // External libraries
         'angular': '/base/wwwroot/lib/angular/angular',
         'angularMocks': '/base/wwwroot/lib/angular-mocks/angular-mocks',
-        'uiRouter' : '/base/wwwroot/lib/angular-ui-router/release/angular-ui-router',
+        'uiRouter': '/base/wwwroot/lib/angular-ui-router/release/angular-ui-router',
+        //utils
+        //'go_go_gadget' : '/base/wwwroot/app_utils',
 
         //'templates': '../templates'
         'people': '/base/wwwroot/app_modules'
@@ -32,7 +34,9 @@ require.config({
         'angular': { 'exports': 'angular' },
         'angularMocks': { deps: ['angular'], 'exports': 'angular.mock' },
         'uiRouter' : {deps: ['angular'], 'exports' : 'uiRouter'},
-
+       // 'go_go_gadget': {
+       //     'exports': 'go_go_gadget'
+       // },
 
         // Each template to be included in tests should be included below.
         //‘templates/status-chart.html': {deps: ['angular']}

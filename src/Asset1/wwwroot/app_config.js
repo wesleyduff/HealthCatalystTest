@@ -11,7 +11,10 @@
         'domReady': 'lib/vendor.requirejs/domReady',
         'bootstrapjs': 'lib/bootstrap/dist/js/bootstrap.min',
         'require': 'lib/requirejs/require',
-        'serivice_config' : 'Shared/services'
+        'serivice_config': 'Shared/services',
+
+        //utils
+        'go_go_gadget' : 'app_utils'
     },
     shim: {
         'angular': {
@@ -35,7 +38,10 @@
             exports: '_'
         },
         'ui.router': ['angular'],
-        'ui.bootstrap': ['angular']
+        'ui.bootstrap': ['angular'],
+        'go_go_gadget': {
+            exports: 'go_go_gadget'
+        }
     },
     deps: [
       'bootstrap'

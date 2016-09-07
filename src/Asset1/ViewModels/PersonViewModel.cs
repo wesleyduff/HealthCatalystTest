@@ -9,11 +9,10 @@ namespace Asset1.ViewModels
 {
     public class PersonViewModel
     {
-        
-
         public int Id { get; set; }
         public Gender Gender { get; set; }
         public ICollection<Interests> Interests { get; set; }
+
         [Required]
         [StringLength(50, MinimumLength = 2)]
         public string FirstName { get; set; }

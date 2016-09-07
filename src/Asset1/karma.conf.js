@@ -23,6 +23,11 @@ module.exports = function (config) {
              //Deps for Oc.LazyLoad Testing : THAT REQUIRE ANGLUAR or someother framework to be loaded
             { pattern: 'wwwroot/app_modules/**/*.js', included: false },
 
+            //Utilities
+            {
+                pattern: 'wwwroot/app_utils.js',
+                include: false
+            },
 
              //External Deps for RequireJS files
              {

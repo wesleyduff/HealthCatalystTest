@@ -93,7 +93,7 @@
                 function ($scope, $peopleFactoryDataService, $log, $state, $timeout){
 
                     $scope.photos = [];
-                    var person = {};
+                    $scope.person = {};
 
                     var peopleAddMethods = {
                         addPeople: {
@@ -437,10 +437,21 @@
                     $scope.addPerson = function () {
                         peopleAddMethods.utils.ToggleLoader('on');
                         //add the picture to the person "this" object
-                        this.person.largePic = person.picture;
+                        var _person = angular.copy($scope.person)
+                        this.person.largePic = _person.picture; 
 
-                        //Add the person to the DB
-                        $peopleFactoryDataService.addPerson(this.person, $scope.titleOptions, $scope.stateOptions)
+                        
+                        /* Calling addPerson on the module-service 
+                        * [$peopleFactoryDataService] | addPerson  : to add the person to the DB
+                        * -------------------------------------------
+                        * ----  PARMS   --
+                        * --------------------------------------------
+                        * 
+                            //  -- [ _person ] : Object
+                            //  -- [ state ]: String   //  ---- EXAMPLE : TX
+                            //  -- [ title ] : string  //  ---- EXAMPLE : Mr, Mrs, Miss
+                        */
+                        $peopleFactoryDataService.addPerson(this.person, $scope.titleOptions.selectedOption, $scope.stateOptions.selectedOption.abbreviation)
                             .then(peopleAddMethods.addPeople.success, null, peopleAddMethods.addPeople.notification('Notify of : getAllPeople'))
                             .catch(peopleAddMethods.errorCallBack)
                             .finally(peopleAddMethods.addPeople.complete('Complete'));
@@ -454,14 +465,14 @@
                     $scope.chooseImage = function (event, pictureURI) {
 
                         //remove any active elements
-                        jQuery('.panel .active').removeClass('active');
+                        angular.element(event.currentTarget).removeClass('active');
 
                         //add active class
                         angular.element(event.currentTarget).addClass('active');
 
                         event.preventDefault();
 
-                        person.picture = pictureURI;
+                        $scope.person.picture = pictureURI;
                     }
 
                 }
