@@ -9,7 +9,7 @@
 ** __ASP.NET Core__
 ** __Visual Studio 2015 Update 3 .NET Core 1.0.0__
 ** __VS 2015 Tooling Preview 2__
-* [ASP.NET CORE Downloads for the Update and Tooling Preview](https://www.google.com)
+* [ASP.NET CORE Downloads for the Update and Tooling Preview](https://www.microsoft.com/net/core#windows)
 * After the app has fully loaded
 ** Will require around 3 mintues or so. All of the dependencies need to be pulled down from the internet by __Bower__, __NPM__ and other package manager utilities.
 * Once the solutions have loaded you can run the app __CTRL + F5__
