@@ -68,20 +68,18 @@ Health Catalyst Test for Wesley Duff
   - Data is changed when going between views
     - Keeps calls to the server to a minimum
   - Dashboard is seeded with three people on startup
-
-## Adding People
-
-* Validation on items marked with a __"*"__
-* Validation messaging
-* Validation on server side and client side
-* Placeholder data for easy usability
-* Events prevent default to keep from posting unwanted data and page refreshes
-* Select a photo
-  - Adding photo uploading and management of file size and poor quality photos seemed out of scope. Therefor gaining access to RandomMe’s photo API  and taking those URIs and saving those to the database.
-  - Photo selection easily managed
-  - If you do not select a photo then a generic __Male__ or __Female__ photo will be selected for you depending upon your gender.
-    - Gender is selected from your selected title.
-  - Images for the image selection have a preloading image to allow the user insight on why images are not available at the moment.
+* Adding People
+   - Validation on items marked with a __"*"__
+   - Validation messaging
+   - Validation on server side and client side
+   - Placeholder data for easy usability
+   - Events prevent default to keep from posting unwanted data and page refreshes
+   - Select a photo
+      - Adding photo uploading and management of file size and poor quality photos seemed out of scope. Therefor gaining access to RandomMe’s photo API  and taking those URIs and saving those to the database.
+      - Photo selection easily managed
+      - If you do not select a photo then a generic __Male__ or __Female__ photo will be selected for you depending upon your gender.
+         - Gender is selected from your selected title.
+      - Images for the image selection have a preloading image to allow the user insight on why images are not available at the moment.
 - People are saved through an ASYNC method on the back-end
 
 ## Back-end
