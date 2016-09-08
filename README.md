@@ -1,5 +1,33 @@
 Health Catalyst Test for Wesley Duff
 
+<div style="border-top:1px solid #AAA; border-bottom:1px solid #AAA">
+   <section>
+     <a href="http://recordit.co/XjWHjhSiAu" target="_blank">
+      <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/video.PNG" height="300" alt="Video" />
+    </a>
+   </section>
+   <section>
+     <a href="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/dashboard_desktop.PNG" target="_blank">
+      <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/dashboard_desktop.PNG" height="100" alt="dashboard : desktop" />
+    </a>
+    <a href="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/add_person_desktop.PNG" target="_blank">
+      <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/add_person_desktop.PNG" height="100" alt="add person : desktop" />
+    </a>
+    <a href="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/dashboard_tablet.PNG" target="_blank">
+      <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/dashboard_tablet.PNG" height="100" alt="dashboard : tablet" />
+    </a>
+    <a href="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/add_person_tablet.PNG" target="_blank">
+      <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/add_person_tablet.PNG" height="100" alt="add person : tablet" />
+    </a>
+     <a href="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/dashboard_mobile.PNG" target="_blank">
+      <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/dashboard_mobile.PNG" height="100" alt="dashboard : mobile" />
+    </a>
+    <a href="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/add_person_mobile.PNG" target="_blank">
+      <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/add_person_mobile.PNG" height="100" alt="add person : mobile" />
+    </a>
+   </section>
+</div>
+
 # ASP.NET MVC 6 & ASP.NET CORE w/ Code First Entity Framework
 
 ## RUN - APP
