@@ -1,11 +1,13 @@
 Health Catalyst Test for Wesley Duff
 
 <div style="border-top:1px solid #AAA; border-bottom:1px solid #AAA">
-   <section>
+   <section style="display:block;">
      <a href="http://recordit.co/XjWHjhSiAu" target="_blank">
       <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/video.PNG" height="300" alt="Video" />
     </a>
    </section>
+   <br/>
+   <hr/>
    <section>
      <a href="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/dashboard_desktop.PNG" target="_blank">
       <img src="https://raw.githubusercontent.com/wesleyduff/HealthCatalystTest/master/dashboard_desktop.PNG" height="100" alt="dashboard : desktop" />
